@@ -36,19 +36,25 @@ export const Register: React.FC = () => {
   };
 
   return (
-    <>
-      <h1>Register</h1>
-      <form onSubmit={onSubmitHandler}>
+    <div className="App-header">
+      <h1>Registrate</h1>
+      <form className="auth-form" onSubmit={onSubmitHandler}>
+      <div className="form-block">
         <label htmlFor="email">Email</label>
-        <TextField id="email" type="email" />
+        <TextField required id="email" type="email" />
+        </div>
+        <div className="form-block">
         <label htmlFor="password">Password</label>
-        <TextField id="password" type="password"></TextField>
+        <TextField required id="password" type="password"></TextField>
+        </div>
+        <div className="form-block">
         <label htmlFor="confirmPassword">Confirm Password</label>
-        <TextField id="confirmPassword" type="password"></TextField>
+        <TextField required id="confirmPassword" type="password"></TextField>
+        </div>
         <Button type="submit" colorScheme="primary">
           Register
         </Button>
       </form>
-    </>
+    </div>
   );
 };
