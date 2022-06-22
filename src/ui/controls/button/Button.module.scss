@@ -1,0 +1,21 @@
+.container {
+    border: none;
+    width: 100px;
+    padding: .5rem;
+    font-weight: 500;
+
+    &.primary {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    &.primary:hover {
+        background-color: rgb(1, 84, 167);
+    }
+
+    
+    &.secondary {
+        background-color: rgb(170, 170, 170);
+        color: white;
+    }
+}
