@@ -9,6 +9,7 @@ import { useState, FormEvent, useEffect, useRef, forwardRef } from "react";
 import { useItem } from "../Item/context/ItemProvider";
 import { ItemList } from "../ui/item/ItemList";
 import { ItemLi } from "../ui/item/ItemLi";
+import {Navbar} from '../ui/navbar';
 
 interface Form extends HTMLFormElement {
   text: HTMLInputElement;
@@ -88,63 +89,66 @@ export const Home: React.FC = () => {
   }
 
   return (
-    <header className="App-header">
-      {currentUser && (
-        <Button colorScheme="secondary" onClick={signOutHandler}>
-          Sign Out
-        </Button>
-      )}
-      {!currentUser && (
-        <Button colorScheme="primary" onClick={() => navigate("/login")}>
-          Login
-        </Button>
-      )}
-
-      <section>
-        <h1>Tu lista</h1>
-        <Button
-          onClick={() => setIsModalActive(!isModalActive)}
-          colorScheme="primary"
-        >
-          Add
-        </Button>
-        {isModalActive && (
-          <Modal onClose={() => setIsModalActive(!isModalActive)}>
-            <form onSubmit={onSubmitHandler}>
-              <h2>Add Item</h2>
-              <TextField
-                autoFocus
-                type="text"
-                name="text"
-                placeholder="Ingrese un nuevo Item"
-              ></TextField>
-              <ModalFooter>
-                <Button
-                  onClick={() => setIsModalActive(false)}
-                  colorScheme="secondary"
-                >
-                  Cancel
-                </Button>
-                <Button type="submit" colorScheme="primary">
-                  Confirm
-                </Button>
-              </ModalFooter>
-            </form>
-          </Modal>
+    <>
+    <Navbar/>
+      <header className="App-header">
+        {currentUser && (
+          <Button colorScheme="secondary" onClick={signOutHandler}>
+            Sign Out
+          </Button>
         )}
-      </section>
-      <ItemList>
-        {itemState.items
-          ? itemState.items.map((item: Item) => {
-            return (
-              <ItemLi onDoubleClick={() => onToggleItem(item.id)} key={item.id} checked={item.checked ? "checked" : ""}>
-                {item.name}
-                <span onClick={() => onRemoveItem(item.id)}> [X]</span>
-              </ItemLi>
-            );
-          })
-          : null}
-      </ItemList>
-    </header>
+        {!currentUser && (
+          <Button colorScheme="primary" onClick={() => navigate("/login")}>
+            Login
+          </Button>
+        )}
+
+        <section>
+          <h1>Tu lista</h1>
+          <Button
+            onClick={() => setIsModalActive(!isModalActive)}
+            colorScheme="primary"
+          >
+            Add
+          </Button>
+          {isModalActive && (
+            <Modal onClose={() => setIsModalActive(!isModalActive)}>
+              <form onSubmit={onSubmitHandler}>
+                <h2>Add Item</h2>
+                <TextField
+                  autoFocus
+                  type="text"
+                  name="text"
+                  placeholder="Ingrese un nuevo Item"
+                ></TextField>
+                <ModalFooter>
+                  <Button
+                    onClick={() => setIsModalActive(false)}
+                    colorScheme="secondary"
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit" colorScheme="primary">
+                    Confirm
+                  </Button>
+                </ModalFooter>
+              </form>
+            </Modal>
+          )}
+        </section>
+        <ItemList>
+          {itemState.items
+            ? itemState.items.map((item: Item) => {
+              return (
+                <ItemLi onDoubleClick={() => onToggleItem(item.id)} key={item.id} checked={item.checked ? "checked" : ""}>
+                  {item.name}
+                  <span onClick={() => onRemoveItem(item.id)}> [X]</span>
+                </ItemLi>
+              );
+            })
+            : null}
+        </ItemList>
+      </header>
+    </>
   );
 };
