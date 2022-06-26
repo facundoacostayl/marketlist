@@ -52,7 +52,7 @@ export const Home: React.FC = () => {
     }
   }, [itemState]);
 
-  const signOutHandler = async () => {
+  const signOutHandler = () => {
     try {
       onSignOut();
       navigate(0);
@@ -70,13 +70,6 @@ export const Home: React.FC = () => {
       addItem(itemTarget.value);
       setIsModalActive(false);
     }
-
-
-
-    //TODO HARDCODED//setItemList(items => items.concat({id: +new Date, name: itemName.value, checked: false}))
-
-    //TODO WITH DB
-    //setItemList([{...itemList, id: +new Date(), name: itemTarget.value, checked: false}])
   };
 
   const onRemoveItem = (itemId: Item["id"]) => {
@@ -90,19 +83,8 @@ export const Home: React.FC = () => {
 
   return (
     <>
-    <Navbar/>
+    <Navbar isAuth={currentUser ? true : false} onSignOut={signOutHandler}/>
       <header className="App-header">
-        {currentUser && (
-          <Button colorScheme="secondary" onClick={signOutHandler}>
-            Sign Out
-          </Button>
-        )}
-        {!currentUser && (
-          <Button colorScheme="primary" onClick={() => navigate("/login")}>
-            Login
-          </Button>
-        )}
-
         <section>
           <h1>Tu lista</h1>
           <Button
