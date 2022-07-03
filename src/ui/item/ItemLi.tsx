@@ -4,11 +4,13 @@ import { FontAwesomeIcon, ProductIcon, RemoveIcon, CheckIcon, UncheckIcon } from
 type Props = {
   children: React.ReactNode;
   checked: boolean;
-  onToggle: React.MouseEventHandler<HTMLDivElement>;
+  onToggle: VoidFunction;
+  onRemove: VoidFunction
 };
 
 export const ItemLi: React.FC<Props> = ({
   onToggle,
+  onRemove,
   children,
   checked,
 }) => {
@@ -23,7 +25,7 @@ export const ItemLi: React.FC<Props> = ({
         <p style={checked ? {color: 'rgb(63, 197, 63)'} : {color: 'gray'}}>{children}</p>
       </div>
       <div className={`${styles.productLiRightSide}`}>
-        <div className={`${styles.iconContainer} ${styles.removeIconContainer}`}>
+        <div onClick={onRemove} className={`${styles.iconContainer} ${styles.removeIconContainer}`}>
           <i>
             <FontAwesomeIcon className={`${styles.icon}`} icon={RemoveIcon}></FontAwesomeIcon>
           </i>

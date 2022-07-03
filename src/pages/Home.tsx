@@ -36,7 +36,7 @@ export const Home: React.FC = () => {
   useEffect(() => {
     const firestoreRender = async () => {
       const data =
-        currentUser && (await checkOrCreateFirestore(currentUser.email));
+      currentUser && (await checkOrCreateFirestore(currentUser.email));
       data && cloneFireState(data as ItemState);
     };
     currentUser && firestoreRender();
@@ -122,7 +122,7 @@ export const Home: React.FC = () => {
           {itemState.items
             ? itemState.items.map((item: Item) => {
               return (
-                <ItemLi onToggle={() => onToggleItem(item.id)} key={item.id} checked={item.checked}>
+                <ItemLi onToggle={() => onToggleItem(item.id)} key={item.id} onRemove={() => onRemoveItem(item.id)} checked={item.checked}>
                   {item.name}
                 </ItemLi>
               );

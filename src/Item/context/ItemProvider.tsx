@@ -20,22 +20,7 @@ const firestore = getFirestore(firebaseApp);
 
 const INITIAL_STATE: ItemState = {
   itemCount: 0,
-  items: [/*{
-    id: 2,
-    name: "Avena",
-    checked: false
-  },
-  {
-    id: 3,
-    name: "Cereales",
-    checked: false
-  },
-  {
-    id: 4,
-    name: "Quiki",
-    checked: false
-  }*/
-  ],
+  items: [],
   completed: 0,
   pending: 0,
 };
