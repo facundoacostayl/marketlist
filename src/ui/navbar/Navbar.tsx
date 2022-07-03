@@ -1,6 +1,6 @@
 import styles from "./Navbar.module.scss";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon, faArrowRightFromBracket } from "../icons";
+import { FontAwesomeIcon, LoginIcon } from "../icons";
 
 type Props = {
   onSignOut: VoidFunction;
@@ -18,7 +18,7 @@ export const Navbar: React.FC<Props> = ({ onSignOut, isAuth }) => {
           <span>{isAuth ? "Cerrar sesión" : "Iniciar sesión"}</span>
           <FontAwesomeIcon
             className={`${styles.icon}`}
-            icon={faArrowRightFromBracket}
+            icon={LoginIcon}
           ></FontAwesomeIcon>
         </div>
       </div>

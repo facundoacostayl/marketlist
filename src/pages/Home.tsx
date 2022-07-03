@@ -124,7 +124,6 @@ export const Home: React.FC = () => {
               return (
                 <ItemLi onDoubleClick={() => onToggleItem(item.id)} key={item.id} checked={item.checked ? "checked" : ""}>
                   {item.name}
-                  <span onClick={() => onRemoveItem(item.id)}> [X]</span>
                 </ItemLi>
               );
             })

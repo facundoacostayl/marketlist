@@ -1,0 +1,57 @@
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(186,177,177,0.15);
+    height: 50px;
+
+    i {
+        color: white;
+    }
+
+    .productLiLeftSide {    
+        display: flex;
+        align-items: center;
+        gap: 5px; 
+        height: 100%;
+
+        .productIconContainer {
+            height: 100%;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            background-color: dodgerblue;
+        }
+    }   
+
+    .productLiRightSide {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        .iconContainer {
+            height: 100%;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .removeIconContainer {
+            background-color: rgb(255, 0, 0);
+        }
+
+        .checkIconContainer {
+            background-color:rgb(63, 197, 63);
+        }
+    }
+}
+
+.checked {
+    .iconContainer {
+      background-color: rgb(63, 197, 63);    
+    }
+
+    p {
+      color: rgba(128, 128, 128, 0.534);
+    }
+}
