@@ -4,16 +4,16 @@ import { FontAwesomeIcon, ProductIcon, RemoveIcon, CheckIcon, UncheckIcon } from
 type Props = {
   children: React.ReactNode;
   checked: boolean;
-  onDoubleClick: React.MouseEventHandler<HTMLLIElement>;
+  onToggle: React.MouseEventHandler<HTMLDivElement>;
 };
 
 export const ItemLi: React.FC<Props> = ({
-  onDoubleClick,
+  onToggle,
   children,
   checked,
 }) => {
   return (
-    <li className={`${styles.checked}`} onDoubleClick={onDoubleClick}>
+    <li className={`${styles.checked}`}>
       <div className={`${styles.productLiLeftSide}`}>
         <div className={`${styles.iconContainer} ${!checked ? styles.productIconContainer : styles.checkIconContainer}`}>
           <i>
@@ -28,7 +28,7 @@ export const ItemLi: React.FC<Props> = ({
             <FontAwesomeIcon className={`${styles.icon}`} icon={RemoveIcon}></FontAwesomeIcon>
           </i>
         </div>
-        <div className={`${styles.iconContainer} ${!checked ? styles.checkIconContainer : styles.unCheckIconContainer}`}>
+        <div onClick={onToggle} className={`${styles.iconContainer} ${!checked ? styles.checkIconContainer : styles.unCheckIconContainer}`}>
           <i>
             <FontAwesomeIcon className={`${styles.icon}`} icon={!checked ? CheckIcon : UncheckIcon}></FontAwesomeIcon>
           </i>
