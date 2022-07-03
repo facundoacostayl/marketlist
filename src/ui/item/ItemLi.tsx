@@ -15,12 +15,12 @@ export const ItemLi: React.FC<Props> = ({
   return (
     <li className={`${styles.checked}`} onDoubleClick={onDoubleClick}>
       <div className={`${styles.productLiLeftSide}`}>
-        <div className={`${styles.iconContainer} ${styles.productIconContainer}`}>
+        <div className={`${styles.iconContainer} ${!checked ? styles.productIconContainer : styles.checkIconContainer}`}>
           <i>
             <FontAwesomeIcon className={`${styles.icon}`} icon={ProductIcon}></FontAwesomeIcon>
           </i>
         </div>
-        <p>{children}</p>
+        <p style={checked ? {color: 'rgb(63, 197, 63)'} : {color: 'gray'}}>{children}</p>
       </div>
       <div className={`${styles.productLiRightSide}`}>
         <div className={`${styles.iconContainer} ${styles.removeIconContainer}`}>

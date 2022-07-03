@@ -20,17 +20,6 @@ li {
         gap: 5px; 
         height: 100%;
 
-        .iconContainer {
-            height: 100%;
-            padding: 0 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .productIconContainer {
-            background-color: dodgerblue;
-        }
-
         p {
             color: gray;
         }
@@ -40,26 +29,30 @@ li {
         display: flex;
         align-items: center;
         height: 100%;
+    }
 
-        .iconContainer {
-            height: 100%;
-            padding: 0 15px;
-            display: flex;
-            align-items: center;
-        }
+    .iconContainer {
+        height: 100%;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+    }
 
-        .removeIconContainer {
-            background-color: rgb(255, 0, 0);
-        }
+    .productIconContainer {
+        background-color: dodgerblue;
+    }
 
-        .checkIconContainer {
-            background-color:rgb(63, 197, 63);
-        }
+    .removeIconContainer {
+        background-color: red;
+    }
 
-        .unCheckIconContainer {
-            i {
-                color: red;
-            }
+    .checkIconContainer {
+        background-color:rgb(63, 197, 63);
+    }
+
+    .unCheckIconContainer {
+        i {
+            color: red;
         }
     }
 }
