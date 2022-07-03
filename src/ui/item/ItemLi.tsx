@@ -1,23 +1,23 @@
 import styles from "./ItemLi.module.scss";
-import { FontAwesomeIcon, ProductIcon, RemoveIcon, CheckIcon } from "../icons";
+import { FontAwesomeIcon, ProductIcon, RemoveIcon, CheckIcon, UncheckIcon } from "../icons";
 
 type Props = {
   children: React.ReactNode;
-  checked: "checked" | "";
+  checked: boolean;
   onDoubleClick: React.MouseEventHandler<HTMLLIElement>;
 };
 
 export const ItemLi: React.FC<Props> = ({
   onDoubleClick,
   children,
-  checked = "checked",
+  checked,
 }) => {
   return (
-    <li onDoubleClick={onDoubleClick}>
-      <div className={`${styles.productLiLeftSide} ${styles.checked}`}>
-        <div className={`${styles.productIconContainer}`}>
+    <li className={`${styles.checked}`} onDoubleClick={onDoubleClick}>
+      <div className={`${styles.productLiLeftSide}`}>
+        <div className={`${styles.iconContainer} ${styles.productIconContainer}`}>
           <i>
-            <FontAwesomeIcon icon={ProductIcon}></FontAwesomeIcon>
+            <FontAwesomeIcon className={`${styles.icon}`} icon={ProductIcon}></FontAwesomeIcon>
           </i>
         </div>
         <p>{children}</p>
@@ -25,12 +25,12 @@ export const ItemLi: React.FC<Props> = ({
       <div className={`${styles.productLiRightSide}`}>
         <div className={`${styles.iconContainer} ${styles.removeIconContainer}`}>
           <i>
-            <FontAwesomeIcon icon={RemoveIcon}></FontAwesomeIcon>
+            <FontAwesomeIcon className={`${styles.icon}`} icon={RemoveIcon}></FontAwesomeIcon>
           </i>
         </div>
-        <div className={`${styles.iconContainer} ${styles.checkIconContainer}`}>
+        <div className={`${styles.iconContainer} ${!checked ? styles.checkIconContainer : styles.unCheckIconContainer}`}>
           <i>
-            <FontAwesomeIcon icon={CheckIcon}></FontAwesomeIcon>
+            <FontAwesomeIcon className={`${styles.icon}`} icon={!checked ? CheckIcon : UncheckIcon}></FontAwesomeIcon>
           </i>
         </div>
       </div>

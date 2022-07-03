@@ -122,7 +122,7 @@ export const Home: React.FC = () => {
           {itemState.items
             ? itemState.items.map((item: Item) => {
               return (
-                <ItemLi onDoubleClick={() => onToggleItem(item.id)} key={item.id} checked={item.checked ? "checked" : ""}>
+                <ItemLi onDoubleClick={() => onToggleItem(item.id)} key={item.id} checked={item.checked}>
                   {item.name}
                 </ItemLi>
               );

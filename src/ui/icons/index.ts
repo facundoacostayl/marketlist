@@ -3,6 +3,7 @@ export {
   faArrowRightFromBracket as LoginIcon,
   faTrashCan as RemoveIcon,
   faCheck as CheckIcon,
+  faXmark as UncheckIcon,
   faListCheck,
   faList,
   faCartPlus as CartIcon,

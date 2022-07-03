@@ -9,18 +9,30 @@ li {
         color: white;
     }
 
+    .icon {
+        font-size: 20px;
+        width: 20px;
+    }
+
     .productLiLeftSide {    
         display: flex;
         align-items: center;
         gap: 5px; 
         height: 100%;
 
-        .productIconContainer {
+        .iconContainer {
             height: 100%;
             padding: 0 15px;
             display: flex;
             align-items: center;
+        }
+
+        .productIconContainer {
             background-color: dodgerblue;
+        }
+
+        p {
+            color: gray;
         }
     }   
 
@@ -43,15 +55,11 @@ li {
         .checkIconContainer {
             background-color:rgb(63, 197, 63);
         }
-    }
-}
 
-.checked {
-    .iconContainer {
-      background-color: rgb(63, 197, 63);    
-    }
-
-    p {
-      color: rgba(128, 128, 128, 0.534);
+        .unCheckIconContainer {
+            i {
+                color: red;
+            }
+        }
     }
 }
