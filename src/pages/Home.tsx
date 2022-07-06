@@ -90,7 +90,7 @@ export const Home: React.FC = () => {
           <h1>Tu lista</h1>
           <form onSubmit={onSubmitHandler}>
           <div className="addProductInput">
-            <TextField name="text" placeholder="Agrega un producto..."/>
+            <TextField autoFocus name="text" placeholder="Agrega un producto..."/>
             <div className="addProductButtonGroup">
               <button className="addProductButton"><FontAwesomeIcon className="addProductIcon" icon={AddIcon}/></button>
             </div>
@@ -98,15 +98,16 @@ export const Home: React.FC = () => {
           </form>
         </section>
         <ItemList>
-          {itemState.items
-            ? itemState.items.map((item: Item) => {
-              return (
-                <ItemLi onToggle={() => onToggleItem(item.id)} key={item.id} onRemove={() => onRemoveItem(item.id)} checked={item.checked}>
-                  {item.name}
-                </ItemLi>
-              );
-            })
-            : null}
+          {!itemState.items.length ?
+          "loading..." : 
+          itemState.items.map((item: Item) => {
+            return (
+              <ItemLi onToggle={() => onToggleItem(item.id)} key={item.id} onRemove={() => onRemoveItem(item.id)} checked={item.checked}>
+                {item.name}
+              </ItemLi>
+            );
+          })
+          }
         </ItemList>
       </header>
     </>
