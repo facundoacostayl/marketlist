@@ -2,6 +2,12 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 550px;
+    margin: 0 auto;
+    padding: .2rem;
+    overflow-y: scroll;
 
     ul {
         list-style: none;
