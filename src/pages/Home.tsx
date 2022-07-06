@@ -10,6 +10,7 @@ import { useItem } from "../Item/context/ItemProvider";
 import { ItemList } from "../ui/item/ItemList";
 import { ItemLi } from "../ui/item/ItemLi";
 import {Navbar} from '../ui/navbar';
+import {FontAwesomeIcon, AddIcon} from '../ui/icons';
 
 interface Form extends HTMLFormElement {
   text: HTMLInputElement;
@@ -87,36 +88,14 @@ export const Home: React.FC = () => {
       <header className="App-header">
         <section>
           <h1>Tu lista</h1>
-          <Button
-            onClick={() => setIsModalActive(!isModalActive)}
-            colorScheme="primary"
-          >
-            Add
-          </Button>
-          {isModalActive && (
-            <Modal onClose={() => setIsModalActive(!isModalActive)}>
-              <form onSubmit={onSubmitHandler}>
-                <h2>Add Item</h2>
-                <TextField
-                  autoFocus
-                  type="text"
-                  name="text"
-                  placeholder="Ingrese un nuevo Item"
-                ></TextField>
-                <ModalFooter>
-                  <Button
-                    onClick={() => setIsModalActive(false)}
-                    colorScheme="secondary"
-                  >
-                    Cancel
-                  </Button>
-                  <Button type="submit" colorScheme="primary">
-                    Confirm
-                  </Button>
-                </ModalFooter>
-              </form>
-            </Modal>
-          )}
+          <form onSubmit={onSubmitHandler}>
+          <div className="addProductInput">
+            <TextField name="text" placeholder="Agrega un producto..."/>
+            <div className="addProductButtonGroup">
+              <button className="addProductButton"><FontAwesomeIcon className="addProductIcon" icon={AddIcon}/></button>
+            </div>
+          </div>
+          </form>
         </section>
         <ItemList>
           {itemState.items

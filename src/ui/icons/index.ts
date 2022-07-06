@@ -7,5 +7,6 @@ export {
   faListCheck,
   faList,
   faCartPlus as CartIcon,
-  faTag as ProductIcon
+  faTag as ProductIcon,
+  faPlus as AddIcon
 } from "@fortawesome/free-solid-svg-icons";

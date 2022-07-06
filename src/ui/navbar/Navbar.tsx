@@ -15,8 +15,7 @@ export const Navbar: React.FC<Props> = ({ onSignOut, isAuth }) => {
       <div className={`${styles.container}`}>
         <a href="#">Check It!</a>
         <div onClick={isAuth ? onSignOut : () => navigate("/login")} className={`${styles.signGroup}`}>
-          <span>{isAuth ? "Cerrar sesión" : "Iniciar sesión"}</span>
-          <FontAwesomeIcon
+           <FontAwesomeIcon
             className={`${styles.icon}`}
             icon={LoginIcon}
           ></FontAwesomeIcon>

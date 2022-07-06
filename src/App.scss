@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: whitesmoke;
   min-height: 100vh;
@@ -24,20 +13,6 @@
   h1 {
     margin: 2rem 0;
     font-size: 2rem;
-  }
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
   }
 }
 
@@ -62,3 +37,34 @@
     justify-content: space-around;
   }
 }
+
+.addProductInput {
+  position: relative;
+  margin: 0 auto;
+  height: 50px;
+  max-width: 500px;
+
+  .addProductButtonGroup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    .addProductButton {
+      font-family: none;
+      padding: 0 15px;
+      background-color: dodgerblue;
+      height: 95%;
+
+      .addProductIcon {
+        color: white;
+        font-size: 20px;
+      }
+    }
+  }
+  
+}
+
+//LET'S TRY PUTTING ICON INSIDE INPUT TAG BRO
