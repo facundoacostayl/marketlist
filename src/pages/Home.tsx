@@ -10,6 +10,7 @@ import { useItem } from "../Item/context/ItemProvider";
 import { ItemList } from "../ui/item/ItemList";
 import { ItemLi } from "../ui/item/ItemLi";
 import {Navbar} from '../ui/navbar';
+import {PriceBox} from '../ui/priceBox';
 import {FontAwesomeIcon, AddIcon} from '../ui/icons';
 
 interface Form extends HTMLFormElement {
@@ -109,6 +110,9 @@ export const Home: React.FC = () => {
           })
           }
         </ItemList>
+        <div>
+          <PriceBox/>
+        </div>
       </header>
     </>
   );
