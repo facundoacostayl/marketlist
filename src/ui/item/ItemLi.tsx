@@ -15,7 +15,7 @@ export const ItemLi: React.FC<Props> = ({
   checked,
 }) => {
   return (
-    <li className={`${styles.checked}`}>
+    <li>
       <div className={`${styles.productLiLeftSide}`}>
         <div className={`${styles.iconContainer} ${!checked ? styles.productIconContainer : styles.checkIconContainer}`}>
           <i>

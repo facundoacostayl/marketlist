@@ -9,10 +9,10 @@ import { useState, FormEvent, useEffect, useRef, forwardRef } from "react";
 import { useItem } from "../Item/context/ItemProvider";
 import { ItemList } from "../ui/item/ItemList";
 import { ItemLi } from "../ui/item/ItemLi";
-import {Navbar} from '../ui/navbar';
-import {PriceBox} from '../ui/priceBox';
-import {FinishButton} from '../ui/finishButton';
-import {FontAwesomeIcon, AddIcon} from '../ui/icons';
+import { Navbar } from "../ui/navbar";
+import { PriceBox } from "../ui/priceBox";
+import { FinishButton } from "../ui/finishButton";
+import { FontAwesomeIcon, AddIcon } from "../ui/icons";
 
 interface Form extends HTMLFormElement {
   text: HTMLInputElement;
@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
   useEffect(() => {
     const firestoreRender = async () => {
       const data =
-      currentUser && (await checkOrCreateFirestore(currentUser.email));
+        currentUser && (await checkOrCreateFirestore(currentUser.email));
       data && cloneFireState(data as ItemState);
     };
     currentUser && firestoreRender();
@@ -50,7 +50,7 @@ export const Home: React.FC = () => {
       isFirstRun.current = false;
       return;
     } else {
-      console.log(itemState.items)
+      console.log(itemState.items);
       updateFirestore(currentUser && currentUser.email);
     }
   }, [itemState]);
@@ -81,39 +81,51 @@ export const Home: React.FC = () => {
   };
 
   const onToggleItem = (itemId: Item["id"]) => {
-    toggleItem(itemId)
-  }
+    toggleItem(itemId);
+  };
 
   return (
     <>
-    <Navbar isAuth={currentUser ? true : false} onSignOut={signOutHandler}/>
+      <Navbar isAuth={currentUser ? true : false} onSignOut={signOutHandler} />
       <header className="App-header">
         <section>
           <h1>Tu lista</h1>
           <form onSubmit={onSubmitHandler}>
-          <div className="addProductInput">
-            <TextField autoFocus name="text" placeholder="Agrega un producto..."/>
-            <div className="addProductButtonGroup">
-              <button className="addProductButton"><FontAwesomeIcon className="addProductIcon" icon={AddIcon}/></button>
+            <div className="addProductInput">
+              <TextField
+                autoFocus
+                name="text"
+                placeholder="Agrega un producto..."
+              />
+              <div className="addProductButtonGroup">
+                <button className="addProductButton">
+                  <FontAwesomeIcon className="addProductIcon" icon={AddIcon} />
+                </button>
+              </div>
             </div>
-          </div>
           </form>
         </section>
-        <ItemList>
-          {!itemState.items.length ?
-          "loading..." : 
-          itemState.items.map((item: Item) => {
-            return (
-              <ItemLi onToggle={() => onToggleItem(item.id)} key={item.id} onRemove={() => onRemoveItem(item.id)} checked={item.checked}>
-                {item.name}
-              </ItemLi>
-            );
-          })
-          }
-        </ItemList>
         <div>
-          <FinishButton/>
-          <PriceBox/>
+          <ItemList>
+            {!itemState.items.length
+              ? "loading..."
+              : itemState.items.map((item: Item) => {
+                  return (
+                    <ItemLi
+                      onToggle={() => onToggleItem(item.id)}
+                      key={item.id}
+                      onRemove={() => onRemoveItem(item.id)}
+                      checked={item.checked}
+                    >
+                      {item.name}
+                    </ItemLi>
+                  );
+                })}
+          </ItemList>
+        </div>
+        <div>
+          <FinishButton />
+          <PriceBox />
         </div>
       </header>
     </>
