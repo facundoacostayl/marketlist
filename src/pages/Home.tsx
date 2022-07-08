@@ -11,6 +11,7 @@ import { ItemList } from "../ui/item/ItemList";
 import { ItemLi } from "../ui/item/ItemLi";
 import {Navbar} from '../ui/navbar';
 import {PriceBox} from '../ui/priceBox';
+import {FinishButton} from '../ui/finishButton';
 import {FontAwesomeIcon, AddIcon} from '../ui/icons';
 
 interface Form extends HTMLFormElement {
@@ -111,6 +112,7 @@ export const Home: React.FC = () => {
           }
         </ItemList>
         <div>
+          <FinishButton/>
           <PriceBox/>
         </div>
       </header>

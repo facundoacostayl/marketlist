@@ -9,5 +9,5 @@ export {
   faCartPlus as CartIcon,
   faTag as ProductIcon,
   faPlus as AddIcon,
-  faCircleCheck as FinishIcon
+  faHandHoldingDollar as FinishIcon
 } from "@fortawesome/free-solid-svg-icons";
