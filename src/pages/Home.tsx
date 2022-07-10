@@ -69,10 +69,11 @@ export const Home: React.FC = () => {
 
     const itemTarget = e.currentTarget.text;
 
-    if (itemTarget.value.length > 0) {
+    if (!itemTarget.value.length) return;
+
       addItem(itemTarget.value);
-      setIsModalActive(false);
-    }
+      itemTarget.value = "";
+
   };
 
   const onRemoveItem = (itemId: Item["id"]) => {
@@ -86,9 +87,9 @@ export const Home: React.FC = () => {
 
   return (
     <>
+      <div className="container">
       <Navbar isAuth={currentUser ? true : false} onSignOut={signOutHandler} />
-      <header className="App-header">
-        <section>
+      <header className="appMain">
           <h1>Tu lista</h1>
           <form onSubmit={onSubmitHandler}>
             <div className="addProductInput">
@@ -104,8 +105,7 @@ export const Home: React.FC = () => {
               </div>
             </div>
           </form>
-        </section>
-        <div>
+        <div className="listDiv">
           <ItemList>
             {!itemState.items.length
               ? "loading..."
@@ -123,11 +123,12 @@ export const Home: React.FC = () => {
                 })}
           </ItemList>
         </div>
-        <div>
+        <div className="finishButtonsDiv">
           <FinishButton />
           <PriceBox />
         </div>
       </header>
+      </div>
     </>
   );
 };
