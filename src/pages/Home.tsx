@@ -106,10 +106,10 @@ export const Home: React.FC = () => {
             </div>
           </form>
         <div className="listDiv">
-          <ItemList>
+          <ItemList newItem={itemState}>
             {!itemState.items.length
               ? "loading..."
-              : itemState.items.map((item: Item) => {
+              : [...itemState.items].reverse().map((item: Item) => {
                   return (
                     <ItemLi
                       onToggle={() => onToggleItem(item.id)}
