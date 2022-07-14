@@ -71,9 +71,8 @@ export const Home: React.FC = () => {
 
     if (!itemTarget.value.length) return;
 
-      addItem(itemTarget.value);
-      itemTarget.value = "";
-
+    addItem(itemTarget.value);
+    itemTarget.value = "";
   };
 
   const onRemoveItem = (itemId: Item["id"]) => {
@@ -88,8 +87,23 @@ export const Home: React.FC = () => {
   return (
     <>
       <div className="container">
-      <Navbar isAuth={currentUser ? true : false} onSignOut={signOutHandler} />
-      <header className="appMain">
+        <Navbar
+          isAuth={currentUser ? true : false}
+          onSignOut={signOutHandler}
+        />
+        <header className="appMain">
+          {isModalActive &&
+          <Modal onClose={() => setIsModalActive(false)}>
+          <h3>Ingresa el monto de tu compra</h3>
+            <form className="modalForm">
+              <TextField placeholder="$" type="text" name="text"></TextField>
+              <ModalFooter>
+                  <Button type="submit" colorScheme="primary">Confirmar</Button>
+                  <Button onClick={() => setIsModalActive(false)} colorScheme="secondary">Cancelar</Button>
+              </ModalFooter>
+            </form>
+          </Modal> }
+          
           <h1>Tu lista</h1>
           <form onSubmit={onSubmitHandler}>
             <div className="addProductInput">
@@ -105,29 +119,29 @@ export const Home: React.FC = () => {
               </div>
             </div>
           </form>
-        <div className="listDiv">
-          <ItemList newItem={itemState}>
-            {!itemState.items.length
-              ? "loading..."
-              : [...itemState.items].reverse().map((item: Item) => {
-                  return (
-                    <ItemLi
-                      onToggle={() => onToggleItem(item.id)}
-                      key={item.id}
-                      onRemove={() => onRemoveItem(item.id)}
-                      checked={item.checked}
-                    >
-                      {item.name}
-                    </ItemLi>
-                  );
-                })}
-          </ItemList>
-        </div>
-        <div className="finishButtonsDiv">
-          <FinishButton />
-          <PriceBox />
-        </div>
-      </header>
+          <div className="listDiv">
+            <ItemList>
+              {!itemState.items.length
+                ? "loading..."
+                : [...itemState.items].reverse().map((item: Item) => {
+                    return (
+                      <ItemLi
+                        onToggle={() => onToggleItem(item.id)}
+                        key={item.id}
+                        onRemove={() => onRemoveItem(item.id)}
+                        checked={item.checked}
+                      >
+                        {item.name}
+                      </ItemLi>
+                    );
+                  })}
+            </ItemList>
+          </div>
+          <div className="finishButtonsDiv">
+            <FinishButton onOpenModal={() => setIsModalActive(true)} />
+            <PriceBox />
+          </div>
+        </header>
       </div>
     </>
   );

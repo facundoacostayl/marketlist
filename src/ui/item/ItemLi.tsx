@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
   checked: boolean;
   onToggle: VoidFunction;
-  onRemove: VoidFunction
+  onRemove: VoidFunction;
 };
 
 export const ItemLi: React.FC<Props> = ({
