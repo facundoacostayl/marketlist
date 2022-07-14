@@ -122,7 +122,7 @@ export const Home: React.FC = () => {
           <div className="listDiv">
             <ItemList>
               {!itemState.items.length
-                ? "loading..."
+                ? <p>No hay items en la lista</p>
                 : [...itemState.items].reverse().map((item: Item) => {
                     return (
                       <ItemLi
