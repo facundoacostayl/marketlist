@@ -58,11 +58,14 @@
     display: flex;
     align-items: center;
 
+
     .addProductButton {
       font-family: none;
       padding: 0 15px;
       background-color: dodgerblue;
       height: 95%;
+      cursor: pointer;
+      transition: .2s all ease-in-out;
 
       .addProductIcon {
         color: white;
