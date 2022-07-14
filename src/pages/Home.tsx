@@ -92,18 +92,32 @@ export const Home: React.FC = () => {
           onSignOut={signOutHandler}
         />
         <header className="appMain">
-          {isModalActive &&
-          <Modal onClose={() => setIsModalActive(false)}>
-          <h3>Ingresa el monto de tu compra</h3>
-            <form className="modalForm">
-              <TextField placeholder="$" type="text" name="text"></TextField>
-              <ModalFooter>
-                  <Button type="submit" colorScheme="primary">Confirmar</Button>
-                  <Button onClick={() => setIsModalActive(false)} colorScheme="secondary">Cancelar</Button>
-              </ModalFooter>
-            </form>
-          </Modal> }
-          
+          {isModalActive && (
+            <Modal onClose={() => setIsModalActive(false)}>
+              <h3>Ingresa el monto de tu compra</h3>
+              <form className="modalForm">
+                <div className="addTotalInput">
+                  <TextField
+                    placeholder="$"
+                    type="text"
+                    name="text"
+                  ></TextField>
+                </div>
+                <ModalFooter>
+                  <Button type="submit" colorScheme="primary">
+                    Confirmar
+                  </Button>
+                  <Button
+                    onClick={() => setIsModalActive(false)}
+                    colorScheme="secondary"
+                  >
+                    Cancelar
+                  </Button>
+                </ModalFooter>
+              </form>
+            </Modal>
+          )}
+
           <h1>Tu lista</h1>
           <form onSubmit={onSubmitHandler}>
             <div className="addProductInput">
@@ -121,20 +135,22 @@ export const Home: React.FC = () => {
           </form>
           <div className="listDiv">
             <ItemList>
-              {!itemState.items.length
-                ? <p>No hay items en la lista</p>
-                : [...itemState.items].reverse().map((item: Item) => {
-                    return (
-                      <ItemLi
-                        onToggle={() => onToggleItem(item.id)}
-                        key={item.id}
-                        onRemove={() => onRemoveItem(item.id)}
-                        checked={item.checked}
-                      >
-                        {item.name}
-                      </ItemLi>
-                    );
-                  })}
+              {!itemState.items.length ? (
+                <p>No hay items en la lista</p>
+              ) : (
+                [...itemState.items].reverse().map((item: Item) => {
+                  return (
+                    <ItemLi
+                      onToggle={() => onToggleItem(item.id)}
+                      key={item.id}
+                      onRemove={() => onRemoveItem(item.id)}
+                      checked={item.checked}
+                    >
+                      {item.name}
+                    </ItemLi>
+                  );
+                })
+              )}
             </ItemList>
           </div>
           <div className="finishButtonsDiv">
