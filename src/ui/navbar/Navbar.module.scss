@@ -37,6 +37,12 @@
 
             .icon {
                 font-size: 25px;
+                color: gray;
+                transition: .2s all ease-in-out;
+            }
+
+            .icon:hover {
+                color: rgb(199, 199, 199);
             }
         }
     }

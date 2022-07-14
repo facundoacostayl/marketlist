@@ -1,6 +1,6 @@
 import styles from "./Navbar.module.scss";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon, LoginIcon } from "../icons";
+import { FontAwesomeIcon, UserIcon } from "../icons";
 
 type Props = {
   onSignOut: VoidFunction;
@@ -17,7 +17,7 @@ export const Navbar: React.FC<Props> = ({ onSignOut, isAuth }) => {
         <div onClick={isAuth ? onSignOut : () => navigate("/login")} className={`${styles.signGroup}`}>
            <FontAwesomeIcon
             className={`${styles.icon}`}
-            icon={LoginIcon}
+            icon={UserIcon}
           ></FontAwesomeIcon>
         </div>
       </div>
