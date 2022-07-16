@@ -1,6 +1,6 @@
 import { useAuth } from "../Auth/context/AuthProvider";
 import { Button } from "../ui/controls/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { TextField } from "../ui/textField";
 import { Modal } from "../ui/controls/modal";
 import { ModalFooter } from "../ui/controls/modal";
@@ -55,14 +55,7 @@ export const Home: React.FC = () => {
     }
   }, [itemState]);
 
-  const signOutHandler = () => {
-    try {
-      onSignOut();
-      navigate(0);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
 
   const onSubmitHandler = (e: FormEvent<Form>) => {
     e.preventDefault();
@@ -87,10 +80,7 @@ export const Home: React.FC = () => {
   return (
     <>
       <div className="container">
-        <Navbar
-          isAuth={currentUser ? true : false}
-          onSignOut={signOutHandler}
-        />
+        <Navbar isAuth={currentUser ? true : false}/>
         <header className="appMain">
           {isModalActive && (
             <Modal onClose={() => setIsModalActive(false)}>
@@ -157,6 +147,7 @@ export const Home: React.FC = () => {
             <FinishButton onOpenModal={() => setIsModalActive(true)} />
             <PriceBox />
           </div>
+          {!currentUser && <span className="adviceMessage">¡<Link className="adviceLink" to="/login">Inicia sesión</Link> para comenzar a guardar tus listas!</span>}
         </header>
       </div>
     </>

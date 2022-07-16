@@ -20,6 +20,7 @@ function App() {
         <Route element={<PrivateRoutes isLoggedIn={currentUser} />}>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/mis-listas" element={<></>}></Route>
         </Route>
       </Routes>
     </div>
