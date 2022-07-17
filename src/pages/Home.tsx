@@ -31,7 +31,7 @@ export const Home: React.FC = () => {
     updateFirestore,
   } = useItem();
 
-  const { onSignOut, currentUser } = useAuth();
+  const { currentUser } = useAuth();
   const [isModalActive, setIsModalActive] = useState(false);
   const navigate = useNavigate();
   const isFirstRun = useRef(true);
@@ -79,9 +79,6 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <div className="container">
-        <Navbar isAuth={currentUser ? true : false}/>
-        <header className="appMain">
           {isModalActive && (
             <Modal onClose={() => setIsModalActive(false)}>
               <h3>Ingresa el monto de tu compra</h3>
@@ -148,8 +145,6 @@ export const Home: React.FC = () => {
             <PriceBox />
           </div>
           {!currentUser && <span className="adviceMessage">¡<Link className="adviceLink" to="/login">Inicia sesión</Link> para comenzar a guardar tus listas!</span>}
-        </header>
-      </div>
     </>
   );
 };

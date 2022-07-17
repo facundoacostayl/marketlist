@@ -1,6 +1,6 @@
 import styles from "./Navbar.module.scss";
 import {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon, UserIcon, LoginIcon } from "../icons";
 import {UserMenu} from '../userMenu';
 
@@ -16,7 +16,7 @@ export const Navbar: React.FC<Props> = ({ isAuth }) => {
   return (
     <nav className={`${styles.navbar}`}>
       <div className={`${styles.container}`}>
-        <a href="#">Check It!</a>
+        <Link to="/">Check It!</Link>
         {isAuth ? 
         <div className={`${styles.iconAndIconMenu}`}>
         <div onClick={() => setIsUserMenu(true)}>

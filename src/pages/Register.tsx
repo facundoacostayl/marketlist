@@ -11,7 +11,7 @@ interface Form extends HTMLFormElement {
 }
 
 export const Register: React.FC = () => {
-  const { signUp, currentUser } = useAuth();
+  const { signUp, signInWithGoogle, currentUser } = useAuth();
   const navigate = useNavigate();
 
   const onSubmitHandler = async (e: FormEvent<Form>) => {
@@ -39,21 +39,26 @@ export const Register: React.FC = () => {
     <div className="App-header">
       <h1>Registrate</h1>
       <form className="auth-form" onSubmit={onSubmitHandler}>
-      <div className="form-block">
-        <label htmlFor="email">Email</label>
-        <TextField required id="email" type="email" />
+        <div className="form-block">
+          <label htmlFor="email">Email</label>
+          <TextField required id="email" type="email" />
         </div>
         <div className="form-block">
-        <label htmlFor="password">Password</label>
-        <TextField required id="password" type="password"></TextField>
+          <label htmlFor="password">Password</label>
+          <TextField required id="password" type="password"></TextField>
         </div>
         <div className="form-block">
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <TextField required id="confirmPassword" type="password"></TextField>
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <TextField required id="confirmPassword" type="password"></TextField>
         </div>
-        <Button type="submit" colorScheme="primary">
-          Register
-        </Button>
+        <div className="button-block">
+          <Button type="submit" colorScheme="primary">
+            Register
+          </Button>
+          <Button onClick={() => signInWithGoogle()} colorScheme="primary">
+            Google
+          </Button>
+        </div>
       </form>
     </div>
   );

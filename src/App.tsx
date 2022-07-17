@@ -7,14 +7,20 @@ import {
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+
 import { useAuth } from "./Auth/context/AuthProvider";
 import { PrivateRoutes } from "./privateRoutes";
+
+import {Navbar} from './ui/navbar';
+
 import "./App.scss";
 
 function App() {
   const { currentUser } = useAuth();
   return (
-    <div className="App">
+    <div className="container">
+      <Navbar isAuth={currentUser ? true : false}/>
+      <div className="appMain">
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route element={<PrivateRoutes isLoggedIn={currentUser} />}>
@@ -23,6 +29,7 @@ function App() {
           <Route path="/mis-listas" element={<></>}></Route>
         </Route>
       </Routes>
+      </div>
     </div>
   );
 }
