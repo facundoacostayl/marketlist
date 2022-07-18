@@ -1,6 +1,6 @@
 import { ItemContext } from "./ItemContext";
 import { useReducer, useContext, useState } from "react";
-import { Item, ItemState } from "../types/interfaces";
+import { Item, ListState, ListOfLists } from "../types/interfaces";
 import { itemReducer } from "./itemReducer";
 import {
   getFirestore,
@@ -18,7 +18,11 @@ export const useItem = () => {
 
 const firestore = getFirestore(firebaseApp);
 
-const INITIAL_STATE: ItemState = {
+const LIST_OF_LISTS: ListOfLists = {
+  lists: []
+} 
+
+const INITIAL_STATE: ListState = {
   itemCount: 0,
   items: [],
   completed: 0,
@@ -27,10 +31,10 @@ const INITIAL_STATE: ItemState = {
 
 export const ItemProvider: React.FC = ({ children }) => {
   const [firestoreItems, setFirestoreItems] = useState<DocumentData | null>(null);
-  const [itemState, dispatch] = useReducer(itemReducer, INITIAL_STATE);
+  const [listState, dispatch] = useReducer(itemReducer, INITIAL_STATE);
 
-  const cloneFireState = (itemState: ItemState) => {
-    dispatch({type: "clone", payload: itemState})
+  const cloneFireState = (listState: ListState) => {
+    dispatch({type: "clone", payload: listState})
   }
   
   const addItem = (item: Item["name"]) => {
@@ -54,7 +58,7 @@ export const ItemProvider: React.FC = ({ children }) => {
       const docData = docCheck.data();
       return docData;
     } else {
-      await setDoc(docRef, { itemCount: itemState.itemCount, items: itemState.items, completed: itemState.completed, pending: itemState.pending });
+      await setDoc(docRef, { itemCount: listState.itemCount, items: listState.items, completed: listState.completed, pending: listState.pending });
       const docCheck = await getDoc(docRef);
       const docData = docCheck.data();
       return docData!;
@@ -63,11 +67,11 @@ export const ItemProvider: React.FC = ({ children }) => {
 
   const updateFirestore = (currentEmail: string | null) => {
     const docRef = doc(firestore, `products/${currentEmail}`);
-    updateDoc(docRef, {itemCount: itemState.itemCount, items: itemState.items, pending: itemState.pending, completed: itemState.completed});
+    updateDoc(docRef, {itemCount: listState.itemCount, items: listState.items, pending: listState.pending, completed: listState.completed});
   }
 
   const values = {
-    itemState,
+    listState,
     cloneFireState,
     addItem,
     removeItem,

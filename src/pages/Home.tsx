@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { TextField } from "../ui/textField";
 import { Modal } from "../ui/controls/modal";
 import { ModalFooter } from "../ui/controls/modal";
-import { Item, ItemState } from "../Item/types/interfaces";
+import { Item, ListState } from "../Item/types/interfaces";
 import { useState, FormEvent, useEffect, useRef, forwardRef } from "react";
 import { useItem } from "../Item/context/ItemProvider";
 import { ItemList } from "../ui/item/ItemList";
@@ -20,7 +20,7 @@ interface Form extends HTMLFormElement {
 
 export const Home: React.FC = () => {
   const {
-    itemState,
+    listState,
     cloneFireState,
     addItem,
     removeItem,
@@ -40,7 +40,7 @@ export const Home: React.FC = () => {
     const firestoreRender = async () => {
       const data =
         currentUser && (await checkOrCreateFirestore(currentUser.email));
-      data && cloneFireState(data as ItemState);
+      data && cloneFireState(data as ListState);
     };
     currentUser && firestoreRender();
   }, [currentUser]);
@@ -50,10 +50,10 @@ export const Home: React.FC = () => {
       isFirstRun.current = false;
       return;
     } else {
-      console.log(itemState.items);
+      console.log(listState.items);
       updateFirestore(currentUser && currentUser.email);
     }
-  }, [itemState]);
+  }, [listState]);
 
 
 
@@ -122,10 +122,10 @@ export const Home: React.FC = () => {
           </form>
           <div className="listDiv">
             <ItemList>
-              {!itemState.items.length ? (
+              {!listState.items.length ? (
                 <p>No hay items en la lista</p>
               ) : (
-                [...itemState.items].reverse().map((item: Item) => {
+                [...listState.items].reverse().map((item: Item) => {
                   return (
                     <ItemLi
                       onToggle={() => onToggleItem(item.id)}

@@ -5,8 +5,8 @@ type Props = {
     isLoggedIn: User | null | string
 }
 
-export const PrivateRoutes: React.FC<Props> = ({isLoggedIn}) => {
+export const PublicRoutes: React.FC<Props> = ({isLoggedIn}) => {
   return (
-    isLoggedIn ? <Outlet/> : <Navigate to="/"/>
+    !isLoggedIn ? <Outlet/> : <Navigate to="/"/>
   )
 }

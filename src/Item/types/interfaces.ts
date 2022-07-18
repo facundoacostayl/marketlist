@@ -4,9 +4,14 @@ export interface Item {
     checked: boolean
 }
 
-export interface ItemState {
+export interface ListState {
     itemCount: number,
     items: Item[],
     completed: number,
-    pending: number
+    pending: number,
+
+}
+
+export interface ListOfLists {
+    lists: ListState[]
 }

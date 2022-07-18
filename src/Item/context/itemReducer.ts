@@ -1,12 +1,12 @@
-import { ItemState, Item } from "../types/interfaces";
+import { ListState, Item } from "../types/interfaces";
 
 type ACTION_TYPES =
-  | { type: "clone"; payload: ItemState }
+  | { type: "clone"; payload: ListState }
   | { type: "add"; payload: Item["name"] }
   | { type: "remove"; payload: { id: Item["id"] } }
   | { type: "toggle"; payload: { id: Item["id"] } };
 
-export const itemReducer = (state: ItemState, action: ACTION_TYPES) => {
+export const itemReducer = (state: ListState, action: ACTION_TYPES) => {
   switch (action.type) {
     case "clone":
       return {
