@@ -31,6 +31,7 @@ const INITIAL_STATE: ListState = {
 
 export const ItemProvider: React.FC = ({ children }) => {
   const [firestoreItems, setFirestoreItems] = useState<DocumentData | null>(null);
+  const [listOfLists, setListOfLists] = useState<ListOfLists>(LIST_OF_LISTS);
   const [listState, dispatch] = useReducer(itemReducer, INITIAL_STATE);
 
   const cloneFireState = (listState: ListState) => {
@@ -58,7 +59,7 @@ export const ItemProvider: React.FC = ({ children }) => {
       const docData = docCheck.data();
       return docData;
     } else {
-      await setDoc(docRef, { itemCount: listState.itemCount, items: listState.items, completed: listState.completed, pending: listState.pending });
+      await setDoc(docRef,  { lists: []});
       const docCheck = await getDoc(docRef);
       const docData = docCheck.data();
       return docData!;
