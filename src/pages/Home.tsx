@@ -4,7 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { TextField } from "../ui/textField";
 import { Modal } from "../ui/controls/modal";
 import { ModalFooter } from "../ui/controls/modal";
-import { Item, ListState } from "../Item/types/interfaces";
 import { useState, FormEvent, useEffect, useRef, forwardRef } from "react";
 import { useItem } from "../Item/context/ItemProvider";
 import { ItemList } from "../ui/item/ItemList";
@@ -14,6 +13,10 @@ import { PriceBox } from "../ui/priceBox";
 import { FinishButton } from "../ui/finishButton";
 import { FontAwesomeIcon, AddIcon } from "../ui/icons";
 
+//TYPES//
+import { Item, ListState, ListOfLists } from "../Item/types/interfaces";
+/////////
+
 interface Form extends HTMLFormElement {
   text: HTMLInputElement;
 }
@@ -21,6 +24,8 @@ interface Form extends HTMLFormElement {
 export const Home: React.FC = () => {
   const {
     listState,
+    listOfLists,
+    setListOfLists,
     cloneFireState,
     addItem,
     removeItem,
@@ -40,7 +45,8 @@ export const Home: React.FC = () => {
     const firestoreRender = async () => {
       const data =
         currentUser && (await checkOrCreateFirestore(currentUser.email));
-      data && cloneFireState(data as ListState);
+      data && setListOfLists(data as ListOfLists)
+      //cloneFireState(data as ListState);
     };
     currentUser && firestoreRender();
   }, [currentUser]);

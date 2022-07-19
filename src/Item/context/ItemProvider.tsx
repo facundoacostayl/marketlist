@@ -59,7 +59,7 @@ export const ItemProvider: React.FC = ({ children }) => {
       const docData = docCheck.data();
       return docData;
     } else {
-      await setDoc(docRef,  { itemCount: listState.itemCount, items: listState.items, pending: listState.pending, completed: listState.completed });
+      await setDoc(docRef,  { lists: [] }); //<== This structure.
       const docCheck = await getDoc(docRef);
       const docData = docCheck.data();
       return docData!;
@@ -73,6 +73,8 @@ export const ItemProvider: React.FC = ({ children }) => {
 
   const values = {
     listState,
+    listOfLists,
+    setListOfLists,
     cloneFireState,
     addItem,
     removeItem,

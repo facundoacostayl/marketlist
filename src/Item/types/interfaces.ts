@@ -9,7 +9,6 @@ export interface ListState {
     items: Item[],
     completed: number,
     pending: number,
-
 }
 
 export interface ListOfLists {
