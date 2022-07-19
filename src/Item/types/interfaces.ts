@@ -5,10 +5,12 @@ export interface Item {
 }
 
 export interface ListState {
+    listId: number,
     itemCount: number,
     items: Item[],
     completed: number,
     pending: number,
+    total: number
 }
 
 export interface ListOfLists {

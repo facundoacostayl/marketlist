@@ -23,10 +23,12 @@ const LIST_OF_LISTS: ListOfLists = {
 } 
 
 const INITIAL_STATE: ListState = {
+  listId: 0, //<--- FILTER BY THIS IN ORDER TO SELECT DIFFERENT LISTS FROM DE LIST OF LISTS
   itemCount: 0,
   items: [],
   completed: 0,
   pending: 0,
+  total: 0
 };
 
 export const ItemProvider: React.FC = ({ children }) => {
@@ -59,7 +61,7 @@ export const ItemProvider: React.FC = ({ children }) => {
       const docData = docCheck.data();
       return docData;
     } else {
-      await setDoc(docRef,  { lists: [] }); //<== This structure.
+      await setDoc(docRef,  { listOfLists }); //<== This structure.
       const docCheck = await getDoc(docRef);
       const docData = docCheck.data();
       return docData!;
@@ -68,7 +70,7 @@ export const ItemProvider: React.FC = ({ children }) => {
 
   const updateFirestore = (currentEmail: string | null) => {
     const docRef = doc(firestore, `products/${currentEmail}`);
-    updateDoc(docRef, {itemCount: listState.itemCount, items: listState.items, pending: listState.pending, completed: listState.completed});
+    updateDoc(docRef, { listOfLists });
   }
 
   const values = {
