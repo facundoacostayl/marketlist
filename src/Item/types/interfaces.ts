@@ -14,5 +14,6 @@ export interface ListState {
 }
 
 export interface ListOfLists {
-    lists: ListState[]
+    lists: ListState[],
+    currentList: number
 }

@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
   const {
     listState,
     listOfLists,
-    setListOfLists,
+    addNewList,
     cloneFireState,
     addItem,
     removeItem,
@@ -45,7 +45,8 @@ export const Home: React.FC = () => {
     const firestoreRender = async () => {
       const data =
         currentUser && (await checkOrCreateFirestore(currentUser.email));
-      data && setListOfLists(data as ListOfLists)
+      const currentList = listOfLists.lists.find(list => list.listId = listOfLists.currentList);
+      currentList ? //HERE I MIGHT SET THE CURRENTLIST, OTHERWISE JUST NULL
       //cloneFireState(data as ListState);
     };
     currentUser && firestoreRender();

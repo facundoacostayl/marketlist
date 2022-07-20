@@ -5,7 +5,7 @@ import { DocumentData } from "firebase/firestore";
 type ItemContextProps = {
   listState: ListState;
   listOfLists: ListOfLists;
-  dispatchListOfLists: React.Dispatch<React.SetStateAction<ListOfLists>>;
+  addNewList: VoidFunction;
   cloneFireState: (ListState: ListState) => void;
   addItem: (itemId: Item["name"]) => void;
   removeItem: (itemId: Item["id"]) => void;
