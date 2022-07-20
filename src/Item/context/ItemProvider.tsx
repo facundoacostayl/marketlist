@@ -1,7 +1,7 @@
 import { ItemContext } from "./ItemContext";
 import { useReducer, useContext, useState } from "react";
 import { Item, ListState, ListOfLists } from "../types/interfaces";
-import { itemReducer } from "./itemReducer";
+import { listReducer } from "./listReducer";
 import {
   getFirestore,
   doc,
@@ -33,8 +33,9 @@ const INITIAL_STATE: ListState = {
 
 export const ItemProvider: React.FC = ({ children }) => {
   const [firestoreItems, setFirestoreItems] = useState<DocumentData | null>(null);
-  const [listOfLists, setListOfLists] = useState<ListOfLists>(LIST_OF_LISTS);
-  const [listState, dispatch] = useReducer(itemReducer, INITIAL_STATE);
+  const [listOfLists, dispatchListOfLists] = useReducer(LIST_OF_LISTS);
+  const [listState, dispatch] = useReducer(listReducer, INITIAL_STATE);
+  const [currentList, setCurrentList] = useState<number>(0);
 
   const cloneFireState = (listState: ListState) => {
     dispatch({type: "clone", payload: listState})
@@ -61,7 +62,7 @@ export const ItemProvider: React.FC = ({ children }) => {
       const docData = docCheck.data();
       return docData;
     } else {
-      await setDoc(docRef,  { listOfLists }); //<== This structure.
+      await setDoc(docRef,  { listOfLists, currentList }); //<== This structure.
       const docCheck = await getDoc(docRef);
       const docData = docCheck.data();
       return docData!;
@@ -70,13 +71,13 @@ export const ItemProvider: React.FC = ({ children }) => {
 
   const updateFirestore = (currentEmail: string | null) => {
     const docRef = doc(firestore, `products/${currentEmail}`);
-    updateDoc(docRef, { listOfLists });
+    updateDoc(docRef, { listOfLists, currentList });
   }
 
   const values = {
     listState,
     listOfLists,
-    setListOfLists,
+    dispatchListOfLists,
     cloneFireState,
     addItem,
     removeItem,

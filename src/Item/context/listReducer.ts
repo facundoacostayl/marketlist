@@ -6,20 +6,23 @@ type ACTION_TYPES =
   | { type: "remove"; payload: { id: Item["id"] } }
   | { type: "toggle"; payload: { id: Item["id"] } };
 
-export const itemReducer = (state: ListState, action: ACTION_TYPES) => {
+export const listReducer = (state: ListState, action: ACTION_TYPES) => {
   switch (action.type) {
     case "clone":
       return {
         ...state,
+        listId: state.listId,
         itemCount: action.payload.itemCount,
         items: action.payload.items,
         completed: action.payload.completed,
         pending: action.payload.pending,
+        total: action.payload.total,
       };
 
     case "add":
       return {
         ...state,
+        listId: state.listId ? state.listId : +new Date(),
         itemCount: state.itemCount++,
         items: [
           ...state.items,
