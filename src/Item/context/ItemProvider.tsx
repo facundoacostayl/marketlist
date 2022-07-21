@@ -76,7 +76,7 @@ export const ItemProvider: React.FC = ({ children }) => {
       const docData = docCheck.data();
       return docData;
     } else {
-      await setDoc(docRef,  { listOfLists, currentList: listOfLists.currentList }); //<== This structure.
+      await setDoc(docRef,  { listOfLists });
       const docCheck = await getDoc(docRef);
       const docData = docCheck.data();
       return docData!;
@@ -85,7 +85,7 @@ export const ItemProvider: React.FC = ({ children }) => {
 
   const updateFirestore = (currentEmail: string | null) => {
     const docRef = doc(firestore, `products/${currentEmail}`);
-    updateDoc(docRef, { listOfLists, currentList: listOfLists.currentList });
+    updateDoc(docRef, { listOfLists });
   }
 
   const values = {
