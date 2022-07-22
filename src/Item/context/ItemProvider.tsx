@@ -77,9 +77,13 @@ export const ItemProvider: React.FC = ({ children }) => {
         },
       ],
     });
+
+    console.log("Done")
   };
 
-  const getCurrentList = () => {};
+  const getCurrentList = () => {
+
+  };
 
   const cloneFireState = (listState: ListState) => {
     dispatch({ type: "clone", payload: listState });

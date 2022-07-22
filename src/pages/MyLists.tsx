@@ -1,20 +1,36 @@
 import { useItem } from "../Item/context/ItemProvider";
+import {useAuth} from '../Auth/context/AuthProvider';
 import { ItemList, ItemLi } from "../ui/item";
+import { FontAwesomeIcon, AddIcon } from '../ui/icons';
+import { useEffect, useRef } from "react";
 
 export const MyLists = () => {
-  const { listOfLists } = useItem();
+  const { listOfLists, addNewList, updateFirestore } = useItem();
+  const { currentUser } = useAuth();
+  
+  const isFirstRun = useRef(true);
 
-  console.log(listOfLists)
+  useEffect(() => {
+    if(isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }else {
+      updateFirestore(currentUser && currentUser.email);
+    }
+  }, [listOfLists])
 
   return (
     <>
       <h1>Mis Listas</h1>
+      <div className="addNewListDiv">
+        <FontAwesomeIcon onClick={() => addNewList() } className="addNewListIcon" icon={AddIcon}></FontAwesomeIcon>
+      </div>
       <ItemList>
-        {!listOfLists.lists
+        {!listOfLists.lists.length
           ? "Todavía no hay listas"
           : listOfLists.lists.map((item) => {
-              <ItemLi>{item.listId}</ItemLi>;
-            })}
+            <ItemLi>{item.listId}</ItemLi>;
+          })}
       </ItemList>
     </>
   );

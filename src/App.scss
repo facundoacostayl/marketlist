@@ -90,3 +90,16 @@
     color: dodgerblue;
   }
 }
+
+.addNewListDiv {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+  margin-bottom: 5px;
+
+  .addNewListIcon {
+    color: white;
+    background-color: dodgerBlue;
+    padding: 5px;
+  }
+}
