@@ -3,9 +3,9 @@ import { FontAwesomeIcon, ProductIcon, RemoveIcon, CheckIcon, UncheckIcon } from
 
 type Props = {
   children: React.ReactNode;
-  checked: boolean;
-  onToggle: VoidFunction;
-  onRemove: VoidFunction;
+  checked?: boolean;
+  onToggle?: VoidFunction;
+  onRemove?: VoidFunction;
 };
 
 export const ItemLi: React.FC<Props> = ({

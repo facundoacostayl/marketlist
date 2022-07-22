@@ -43,29 +43,13 @@ export const Home: React.FC = () => {
   const isFirstRun = useRef(true);
 
   useEffect(() => {
-    const firestoreRender = async () => {
-      const data =
-        currentUser && await checkOrCreateFirestore(currentUser.email);
-      console.log(data)
-      const currentList = data && data.lists.find((list: ListState) => list.listId === data.currentList);
-      currentList && console.log(currentList)
-      //currentList ? cloneFireState(currentList) : null //HERE I MIGHT SET THE CURRENTLIST, OTHERWISE JUST NULL
-      //cloneFireState(data as ListState);
-    };
-    currentUser && firestoreRender();
-  }, [currentUser]);
-
-  useEffect(() => {
     if (isFirstRun.current) {
       isFirstRun.current = false;
       return;
     } else {
-      console.log(listState.items);
       updateFirestore(currentUser && currentUser.email);
     }
   }, [listState]);
-
-
 
   const onSubmitHandler = (e: FormEvent<Form>) => {
     e.preventDefault();
@@ -90,72 +74,76 @@ export const Home: React.FC = () => {
 
   return (
     <>
-          {isModalActive && (
-            <Modal onClose={() => setIsModalActive(false)}>
-              <h3>Ingresa el monto de tu compra</h3>
-              <form className="modalForm">
-                <div className="addTotalInput">
-                  <TextField
-                    placeholder="$"
-                    type="text"
-                    name="text"
-                  ></TextField>
-                </div>
-                <ModalFooter>
-                  <Button type="submit" colorScheme="primary">
-                    Confirmar
-                  </Button>
-                  <Button
-                    onClick={() => setIsModalActive(false)}
-                    colorScheme="secondary"
-                  >
-                    Cancelar
-                  </Button>
-                </ModalFooter>
-              </form>
-            </Modal>
-          )}
-
-          <h1>Tu lista</h1>
-          <form onSubmit={onSubmitHandler}>
-            <div className="addProductInput">
-              <TextField
-                autoFocus
-                name="text"
-                placeholder="Agrega un producto..."
-              />
-              <div className="addProductButtonGroup">
-                <button className="addProductButton">
-                  <FontAwesomeIcon className="addProductIcon" icon={AddIcon} />
-                </button>
-              </div>
+      {isModalActive && (
+        <Modal onClose={() => setIsModalActive(false)}>
+          <h3>Ingresa el monto de tu compra</h3>
+          <form className="modalForm">
+            <div className="addTotalInput">
+              <TextField placeholder="$" type="text" name="text"></TextField>
             </div>
+            <ModalFooter>
+              <Button type="submit" colorScheme="primary">
+                Confirmar
+              </Button>
+              <Button
+                onClick={() => setIsModalActive(false)}
+                colorScheme="secondary"
+              >
+                Cancelar
+              </Button>
+            </ModalFooter>
           </form>
-          <div className="listDiv">
-            <ItemList>
-              {!listState.items.length ? (
-                <p>No hay items en la lista</p>
-              ) : (
-                [...listState.items].reverse().map((item: Item) => {
-                  return (
-                    <ItemLi
-                      onToggle={() => onToggleItem(item.id)}
-                      key={item.id}
-                      onRemove={() => onRemoveItem(item.id)}
-                      checked={item.checked}
-                    >
-                      {item.name}
-                    </ItemLi>
-                  );
-                })
-              )}
-            </ItemList>
+        </Modal>
+      )}
+
+      <h1>Tu lista</h1>
+      <form onSubmit={onSubmitHandler}>
+        <div className="addProductInput">
+          <TextField
+            autoFocus
+            name="text"
+            placeholder="Agrega un producto..."
+          />
+          <div className="addProductButtonGroup">
+            <button className="addProductButton">
+              <FontAwesomeIcon className="addProductIcon" icon={AddIcon} />
+            </button>
           </div>
-          <div className="finishButtonsDiv">
-            <FinishButton onOpenModal={() => setIsModalActive(true)} />
-            <PriceBox />
-          </div>
-          {!currentUser && <span className="adviceMessage">¡<Link className="adviceLink" to="/login">Inicia sesión</Link> para comenzar a guardar tus listas!</span>}
+        </div>
+      </form>
+      <div className="listDiv">
+        <ItemList>
+          {!listState.items.length ? (
+            <p>No hay items en la lista</p>
+          ) : (
+            [...listState.items].reverse().map((item: Item) => {
+              return (
+                <ItemLi
+                  onToggle={() => onToggleItem(item.id)}
+                  key={item.id}
+                  onRemove={() => onRemoveItem(item.id)}
+                  checked={item.checked}
+                >
+                  {item.name}
+                </ItemLi>
+              );
+            })
+          )}
+        </ItemList>
+      </div>
+      <div className="finishButtonsDiv">
+        <FinishButton onOpenModal={() => setIsModalActive(true)} />
+        <PriceBox />
+      </div>
+      {!currentUser && (
+        <span className="adviceMessage">
+          ¡
+          <Link className="adviceLink" to="/login">
+            Inicia sesión
+          </Link>{" "}
+          para comenzar a guardar tus listas!
+        </span>
+      )}
     </>
   );
 };
