@@ -54,6 +54,15 @@ export const ItemProvider: React.FC = ({ children }) => {
       await setDoc(docRef, { listOfLists });
       const docCheck = await getDoc(docRef);
       const docData = docCheck.data();
+      docData ? (docData.listOfLists.currentList = +new Date()) : null;
+      docData?.listOfLists.lists.push({
+        listId: docData.listOfLists.currentList,
+          itemCount: 0,
+          items: [],
+          completed: 0,
+          pending: 0,
+          total: 0,
+      })
       return docData!;
     }
   };
@@ -63,12 +72,13 @@ export const ItemProvider: React.FC = ({ children }) => {
     updateDoc(docRef, { listOfLists });
   };
 
-  const addNewList = () => {
+  const addNewList = (listId: number = +new Date()) => {
     setListOfLists({
       ...listOfLists,
       lists: [
+        ...listOfLists.lists,
         {
-          listId: +new Date(),
+          listId: listId,
           itemCount: 0,
           items: [],
           completed: 0,
@@ -78,12 +88,10 @@ export const ItemProvider: React.FC = ({ children }) => {
       ],
     });
 
-    console.log("Done")
+    console.log("Done");
   };
 
-  const getCurrentList = () => {
-
-  };
+  const getCurrentList = () => {};
 
   const cloneFireState = (listState: ListState) => {
     dispatch({ type: "clone", payload: listState });
@@ -102,15 +110,16 @@ export const ItemProvider: React.FC = ({ children }) => {
   };
 
   useEffect(() => {
-    const firestoreRender = async () => {
+    const currentListRender = async () => {
       const data =
         currentUser && (await checkOrCreateFirestore(currentUser.email));
       const currentList = data?.listOfLists.lists.find(
         (list: ListState) => list.listId === data.currentList
       );
       currentList ? cloneFireState(currentList) : null;
+      setListOfLists(data?.listOfLists);
     };
-    currentUser && firestoreRender();
+    currentUser && currentListRender();
   }, [currentUser]);
 
   const values = {
