@@ -4,11 +4,12 @@ export {
   faTrashCan as RemoveIcon,
   faCheck as CheckIcon,
   faXmark as UncheckIcon,
-  faListCheck,
+  faListCheck as ListIcon,
   faList,
   faCartPlus as CartIcon,
   faTag as ProductIcon,
   faPlus as AddIcon,
   faHandHoldingDollar as FinishIcon,
-  faCircleUser as UserIcon
+  faCircleUser as UserIcon,
+  faPen as EditIcon
 } from "@fortawesome/free-solid-svg-icons";

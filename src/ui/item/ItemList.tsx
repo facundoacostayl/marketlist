@@ -1,13 +1,5 @@
-import { useState, useEffect } from 'react';
-import styles from './ItemList.module.scss';
-import {ListState} from '../../Item/types/interfaces';
+import styles from "./ItemList.module.scss";
 
-
-export const ItemList: React.FC = ({children}) => {
-
-  return (
-    <ul className={`${styles.container}`}>
-      {children}
-    </ul>
-  )
-}
+export const ItemList: React.FC = ({ children }) => {
+  return <ul className={`${styles.container}`}>{children}</ul>;
+};

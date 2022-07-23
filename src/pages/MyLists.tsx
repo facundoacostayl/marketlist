@@ -1,6 +1,6 @@
 import { useItem } from "../Item/context/ItemProvider";
 import {useAuth} from '../Auth/context/AuthProvider';
-import { ItemList, ItemLi } from "../ui/item";
+import { ItemList, ItemLi, ListLi } from "../ui/item";
 import { FontAwesomeIcon, AddIcon } from '../ui/icons';
 import { useEffect, useRef } from "react";
 
@@ -28,8 +28,8 @@ export const MyLists = () => {
       <ItemList>
         {!listOfLists.lists.length
           ? "Todavía no hay listas"
-          : listOfLists.lists.map((item) => {
-            <ItemLi>{item.listId}</ItemLi>;
+          : listOfLists.lists.map(list => {
+            return <ListLi key={list.listId}>{list.listId}</ListLi>;
           })}
       </ItemList>
     </>
