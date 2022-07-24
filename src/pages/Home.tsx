@@ -19,6 +19,7 @@ import { Item, ListState, ListOfLists } from "../Item/types/interfaces";
 
 interface Form extends HTMLFormElement {
   text: HTMLInputElement;
+  total: HTMLInputElement;
 }
 
 export const Home: React.FC = () => {
@@ -30,6 +31,7 @@ export const Home: React.FC = () => {
     removeItem,
     toggleItem,
     updateFirestore,
+    cloneFireState
   } = useItem();
 
   const { currentUser } = useAuth();
@@ -55,7 +57,7 @@ export const Home: React.FC = () => {
     updateFirestore(currentUser && currentUser.email);
   }, [listOfLists])
 
-  const onSubmitHandler = (e: FormEvent<Form>) => {
+  const onSubmitItem = (e: FormEvent<Form>) => {
     e.preventDefault();
 
     const itemTarget = e.currentTarget.text;
@@ -75,14 +77,21 @@ export const Home: React.FC = () => {
     toggleItem(itemId);
   };
 
+  const onSubmitTotal = (e: FormEvent<Form>) => {
+    e.preventDefault();
+
+    cloneFireState({...listState, total: parseInt(e.currentTarget.total.value)});
+    setIsModalActive(false);
+  }
+
   return (
     <>
       {isModalActive && (
         <Modal onClose={() => setIsModalActive(false)}>
           <h3>Ingresa el monto de tu compra</h3>
-          <form className="modalForm">
+          <form onSubmit={onSubmitTotal} className="modalForm">
             <div className="addTotalInput">
-              <TextField placeholder="$" type="text" name="text"></TextField>
+              <TextField placeholder="$" type="text" name="total"></TextField>
             </div>
             <ModalFooter>
               <Button type="submit" colorScheme="primary">
@@ -100,7 +109,7 @@ export const Home: React.FC = () => {
       )}
 
       <h1>Tu lista</h1>
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={onSubmitItem}>
         <div className="addProductInput">
           <TextField
             autoFocus
