@@ -2,15 +2,20 @@ import { useItem } from "../Item/context/ItemProvider";
 import {useAuth} from '../Auth/context/AuthProvider';
 import { ItemList, ItemLi, ListLi } from "../ui/item";
 import { FontAwesomeIcon, AddIcon } from '../ui/icons';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import {useNavigate} from 'react-router-dom';
+
+import {ListState} from '../Item/types/interfaces';
 
 export const MyLists = () => {
-  const { listOfLists, addNewList, updateFirestore } = useItem();
+  const { listOfLists, setListOfLists, addNewList, updateFirestore, setIsCurrentListChanged } = useItem();
   const { currentUser } = useAuth();
   
   const isFirstRun = useRef(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(listOfLists)
     if(isFirstRun.current) {
       isFirstRun.current = false;
       return;
@@ -18,6 +23,12 @@ export const MyLists = () => {
       updateFirestore(currentUser && currentUser.email);
     }
   }, [listOfLists])
+
+  const selectList = (listId: ListState["listId"]) => {
+    setListOfLists({...listOfLists, currentList: listId})
+    setIsCurrentListChanged(true);
+    navigate("/");
+  }
 
   return (
     <>
@@ -29,7 +40,7 @@ export const MyLists = () => {
         {!listOfLists.lists.length
           ? "Todavía no hay listas"
           : listOfLists.lists.map(list => {
-            return <ListLi key={list.listId}>{list.listId}</ListLi>;
+            return <ListLi onSelectList={() => selectList(list.listId)} key={list.listId}>{list.listId}</ListLi>;
           })}
       </ItemList>
     </>

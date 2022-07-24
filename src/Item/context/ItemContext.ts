@@ -14,7 +14,9 @@ type ItemContextProps = {
   checkOrCreateFirestore: (idDoc: string | null) => Promise<DocumentData>;
   firestoreItems: DocumentData | null;
   setFirestoreItems: React.Dispatch<React.SetStateAction<DocumentData | null>>;
-  updateFirestore: (emailDoc: string | null) => void
+  updateFirestore: (emailDoc: string | null) => void;
+  isCurrentListChanged: boolean;
+  setIsCurrentListChanged: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const ItemContext = createContext<ItemContextProps>(

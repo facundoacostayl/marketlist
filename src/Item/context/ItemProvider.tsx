@@ -39,6 +39,8 @@ export const ItemProvider: React.FC = ({ children }) => {
   );
   const [listOfLists, setListOfLists] = useState<ListOfLists>(LIST_OF_LISTS);
   const [listState, dispatch] = useReducer(listReducer, INITIAL_STATE);
+  const [isCurrentListChanged, setIsCurrentListChanged] = useState<boolean>(false);
+
 
   const { currentUser } = useAuth();
 
@@ -119,7 +121,8 @@ export const ItemProvider: React.FC = ({ children }) => {
       currentList ? cloneFireState(currentList) : null;
     };
     currentUser && currentListRender();
-  }, [currentUser]);
+    setIsCurrentListChanged(false);
+  }, [currentUser, isCurrentListChanged]);
 
   const values = {
     listState,
@@ -134,6 +137,8 @@ export const ItemProvider: React.FC = ({ children }) => {
     firestoreItems,
     setFirestoreItems,
     updateFirestore,
+    isCurrentListChanged,
+    setIsCurrentListChanged
   };
 
   return <ItemContext.Provider value={values}>{children}</ItemContext.Provider>;

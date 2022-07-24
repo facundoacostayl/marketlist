@@ -41,7 +41,6 @@ export const Home: React.FC = () => {
       isFirstRun.current = false;
       return;
     } else {
-      console.log(listState)
       setListOfLists({...listOfLists, lists: [...listOfLists.lists.map(list => { //TRYING TO UPDATE WITH NEW LISTSTATE
         if(list.listId === listState.listId) {
           return listState
@@ -54,7 +53,6 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     updateFirestore(currentUser && currentUser.email);
-    console.log(listOfLists)
   }, [listOfLists])
 
   const onSubmitHandler = (e: FormEvent<Form>) => {
@@ -71,7 +69,6 @@ export const Home: React.FC = () => {
 
   const onRemoveItem = (itemId: Item["id"]) => {
     removeItem(itemId);
-    //updateFirestore(currentUser ? currentUser.email: null);
   };
 
   const onToggleItem = (itemId: Item["id"]) => {
