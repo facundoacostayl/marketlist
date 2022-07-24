@@ -10,7 +10,8 @@ export interface ListState {
     items: Item[],
     completed: number,
     pending: number,
-    total: number
+    arsTotal: number,
+    usdTotal: number
 }
 
 export interface ListOfLists {

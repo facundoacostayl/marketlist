@@ -1,11 +1,13 @@
 import styles from "./PriceBox.module.scss";
 
+import {ListState} from '../../Item/types/interfaces';
+
 type Props = {
-  ARS: number;
-  USD: number;
+  arsTotal: ListState["arsTotal"];
+  usdTotal: ListState["usdTotal"];
 };
 
-export const PriceBox: React.FC = ({ children }, { ARS = 0, USD = 0 }: Props) => {
+export const PriceBox: React.FC<Props> = ({ children, arsTotal = 0, usdTotal = 0 }) => {
   return (
     <div className={styles.container}>
       <div className={styles.arsSide}>
@@ -16,7 +18,7 @@ export const PriceBox: React.FC = ({ children }, { ARS = 0, USD = 0 }: Props) =>
           {new Intl.NumberFormat("es-AR", {
             style: "currency",
             currency: "ARS",
-          }).format(ARS)}
+          }).format(arsTotal)}
         </p>
       </div>
       <div className={styles.usdSide}>
@@ -27,7 +29,7 @@ export const PriceBox: React.FC = ({ children }, { ARS = 0, USD = 0 }: Props) =>
           {new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD",
-          }).format(USD)}
+          }).format(usdTotal)}
         </p>
       </div>
     </div>

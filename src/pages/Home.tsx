@@ -31,11 +31,12 @@ export const Home: React.FC = () => {
     removeItem,
     toggleItem,
     updateFirestore,
-    cloneFireState
+    cloneFireState,
   } = useItem();
 
   const { currentUser } = useAuth();
   const [isModalActive, setIsModalActive] = useState(false);
+  const [listUsdTotal, setListUsdTotal] = useState<number>(0)
   const isFirstRun = useRef(true);
 
   useEffect(() => {
@@ -43,19 +44,26 @@ export const Home: React.FC = () => {
       isFirstRun.current = false;
       return;
     } else {
-      setListOfLists({...listOfLists, lists: [...listOfLists.lists.map(list => { //TRYING TO UPDATE WITH NEW LISTSTATE
-        if(list.listId === listState.listId) {
-          return listState
-        };
+      setListOfLists({
+        ...listOfLists,
+        lists: [
+          ...listOfLists.lists.map((list) => {
+            if (list.listId === listState.listId) {
+              return listState;
+            }
 
-        return list;
-      })]}); 
+            return list;
+          }),
+        ],
+      });
     }
+    console.log(listState)
   }, [listState]);
 
   useEffect(() => {
-    updateFirestore(currentUser && currentUser.email);
-  }, [listOfLists])
+    currentUser && updateFirestore(currentUser.email);
+    console.log(listOfLists)
+  }, [listOfLists]);
 
   const onSubmitItem = (e: FormEvent<Form>) => {
     e.preventDefault();
@@ -64,7 +72,7 @@ export const Home: React.FC = () => {
 
     if (!itemTarget.value.length) return;
 
-    addItem(itemTarget.value); //TRYING TO UPDATE LISTOFLISTS.LISTS.ITEMS
+    addItem(itemTarget.value);
 
     itemTarget.value = "";
   };
@@ -77,12 +85,38 @@ export const Home: React.FC = () => {
     toggleItem(itemId);
   };
 
+  const convertCurrency = async (arsTotal: number) => {
+    const myHeaders = new Headers();
+      myHeaders.append(
+        "apikey",
+        "lMJAkiwejbkZEEE0gCBCrVxTaRtK3yHV3AwJNPRQ"
+      );
+
+      const response = await fetch(
+        `https://api.currencyapi.com/v3/latest?apikey=lMJAkiwejbkZEEE0gCBCrVxTaRtK3yHV3AwJNPRQ`,
+        {
+          method: "GET",
+          redirect: "follow",
+          headers: myHeaders,
+        }
+      );
+
+      const parseRes = await response.json();
+        console.log(parseRes)
+        cloneFireState({
+          ...listState,
+          arsTotal: arsTotal,
+          usdTotal: arsTotal / parseInt(parseRes.data.ARS.value),
+        });
+  }
+
   const onSubmitTotal = (e: FormEvent<Form>) => {
     e.preventDefault();
 
-    cloneFireState({...listState, total: parseInt(e.currentTarget.total.value)});
+    convertCurrency(parseInt(e.currentTarget.total.value));
+
     setIsModalActive(false);
-  }
+  };
 
   return (
     <>
@@ -145,7 +179,7 @@ export const Home: React.FC = () => {
       </div>
       <div className="finishButtonsDiv">
         <FinishButton onOpenModal={() => setIsModalActive(true)} />
-        <PriceBox />
+        <PriceBox arsTotal={listState.arsTotal} usdTotal={listState.usdTotal} />
       </div>
       {!currentUser && (
         <span className="adviceMessage">

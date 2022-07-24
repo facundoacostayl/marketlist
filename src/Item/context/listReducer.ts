@@ -16,7 +16,8 @@ export const listReducer = (state: ListState, action: ACTION_TYPES) => {
         items: action.payload.items,
         completed: action.payload.completed,
         pending: action.payload.pending,
-        total: action.payload.total,
+        arsTotal: action.payload.arsTotal,
+        usdTotal: action.payload.usdTotal
       };
 
     case "add":

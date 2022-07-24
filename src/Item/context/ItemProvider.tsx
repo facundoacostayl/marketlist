@@ -30,7 +30,8 @@ const INITIAL_STATE: ListState = {
   items: [],
   completed: 0,
   pending: 0,
-  total: 0,
+  arsTotal: 0,
+  usdTotal: 0
 };
 
 export const ItemProvider: React.FC = ({ children }) => {
@@ -63,7 +64,8 @@ export const ItemProvider: React.FC = ({ children }) => {
         items: [],
         completed: 0,
         pending: 0,
-        total: 0,
+        arsTotal: 0,
+        usdTotal: 0
       });
       console.log(docData);
       return docData!;
@@ -86,7 +88,8 @@ export const ItemProvider: React.FC = ({ children }) => {
           items: [],
           completed: 0,
           pending: 0,
-          total: 0,
+          arsTotal: 0,
+          usdTotal: 0
         },
       ],
     });
