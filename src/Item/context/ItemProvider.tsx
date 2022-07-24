@@ -57,12 +57,13 @@ export const ItemProvider: React.FC = ({ children }) => {
       docData ? (docData.listOfLists.currentList = +new Date()) : null;
       docData?.listOfLists.lists.push({
         listId: docData.listOfLists.currentList,
-          itemCount: 0,
-          items: [],
-          completed: 0,
-          pending: 0,
-          total: 0,
-      })
+        itemCount: 0,
+        items: [],
+        completed: 0,
+        pending: 0,
+        total: 0,
+      });
+      console.log(docData);
       return docData!;
     }
   };
@@ -91,8 +92,6 @@ export const ItemProvider: React.FC = ({ children }) => {
     console.log("Done");
   };
 
-  const getCurrentList = () => {};
-
   const cloneFireState = (listState: ListState) => {
     dispatch({ type: "clone", payload: listState });
   };
@@ -114,10 +113,10 @@ export const ItemProvider: React.FC = ({ children }) => {
       const data =
         currentUser && (await checkOrCreateFirestore(currentUser.email));
       const currentList = data?.listOfLists.lists.find(
-        (list: ListState) => list.listId === data.currentList
+        (list: ListState) => list.listId === data.listOfLists.currentList
       );
-      currentList ? cloneFireState(currentList) : null;
       setListOfLists(data?.listOfLists);
+      currentList ? cloneFireState(currentList) : null;
     };
     currentUser && currentListRender();
   }, [currentUser]);

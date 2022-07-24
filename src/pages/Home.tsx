@@ -23,23 +23,17 @@ interface Form extends HTMLFormElement {
 
 export const Home: React.FC = () => {
   const {
-    listState,
     listOfLists,
     setListOfLists,
-    addNewList,
-    cloneFireState,
+    listState,
     addItem,
     removeItem,
     toggleItem,
-    checkOrCreateFirestore,
-    firestoreItems,
-    setFirestoreItems,
     updateFirestore,
   } = useItem();
 
   const { currentUser } = useAuth();
   const [isModalActive, setIsModalActive] = useState(false);
-  const navigate = useNavigate();
   const isFirstRun = useRef(true);
 
   useEffect(() => {
@@ -47,9 +41,21 @@ export const Home: React.FC = () => {
       isFirstRun.current = false;
       return;
     } else {
-      updateFirestore(currentUser && currentUser.email);
+      console.log(listState)
+      setListOfLists({...listOfLists, lists: [...listOfLists.lists.map(list => { //TRYING TO UPDATE WITH NEW LISTSTATE
+        if(list.listId === listState.listId) {
+          return listState
+        };
+
+        return list;
+      })]}); 
     }
   }, [listState]);
+
+  useEffect(() => {
+    updateFirestore(currentUser && currentUser.email);
+    console.log(listOfLists)
+  }, [listOfLists])
 
   const onSubmitHandler = (e: FormEvent<Form>) => {
     e.preventDefault();
@@ -58,7 +64,7 @@ export const Home: React.FC = () => {
 
     if (!itemTarget.value.length) return;
 
-    addItem(itemTarget.value);
+    addItem(itemTarget.value); //TRYING TO UPDATE LISTOFLISTS.LISTS.ITEMS
 
     itemTarget.value = "";
   };

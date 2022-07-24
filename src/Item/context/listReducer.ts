@@ -11,7 +11,7 @@ export const listReducer = (state: ListState, action: ACTION_TYPES) => {
     case "clone":
       return {
         ...state,
-        listId: state.listId,
+        listId: action.payload.listId,
         itemCount: action.payload.itemCount,
         items: action.payload.items,
         completed: action.payload.completed,
