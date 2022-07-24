@@ -32,6 +32,7 @@ export const Home: React.FC = () => {
     toggleItem,
     updateFirestore,
     cloneFireState,
+    addNewList
   } = useItem();
 
   const { currentUser } = useAuth();
@@ -71,6 +72,10 @@ export const Home: React.FC = () => {
     const itemTarget = e.currentTarget.text;
 
     if (!itemTarget.value.length) return;
+
+    if(!listOfLists.lists.length) {
+      addNewList(+new Date(), itemTarget.value)
+    };
 
     addItem(itemTarget.value);
 

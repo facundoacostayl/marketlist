@@ -6,7 +6,7 @@ type ItemContextProps = {
   listState: ListState;
   listOfLists: ListOfLists;
   setListOfLists: React.Dispatch<React.SetStateAction<ListOfLists>>
-  addNewList: VoidFunction;
+  addNewList: (listId?: ListState["listId"], itemName?: Item["name"]) => void;
   cloneFireState: (ListState: ListState) => void;
   addItem: (itemId: Item["name"]) => void;
   removeItem: (itemId: Item["id"]) => void;

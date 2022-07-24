@@ -77,7 +77,7 @@ export const ItemProvider: React.FC = ({ children }) => {
     updateDoc(docRef, { listOfLists });
   };
 
-  const addNewList = (listId: number = +new Date()) => {
+  const addNewList = (listId: ListState["listId"] = +new Date(), itemName?: Item["name"]) => {
     setListOfLists({
       ...listOfLists,
       lists: [
@@ -85,7 +85,12 @@ export const ItemProvider: React.FC = ({ children }) => {
         {
           listId: listId,
           itemCount: 0,
-          items: [],
+          items: itemName ? [
+          {
+          id: +new Date(),
+          name: itemName,
+          checked: false,
+          }] : [],
           completed: 0,
           pending: 0,
           arsTotal: 0,
