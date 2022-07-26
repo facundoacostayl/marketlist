@@ -32,7 +32,7 @@ export const Home: React.FC = () => {
     toggleItem,
     updateFirestore,
     cloneFireState,
-    addNewList
+    addNewList,
   } = useItem();
 
   const { currentUser } = useAuth();
@@ -44,7 +44,7 @@ export const Home: React.FC = () => {
     if (isFirstRun.current) {
       isFirstRun.current = false;
       return;
-    } else {
+    } else{
       setListOfLists({
         ...listOfLists,
         lists: [
@@ -52,18 +52,21 @@ export const Home: React.FC = () => {
             if (list.listId === listState.listId) {
               return listState;
             }
-
             return list;
           }),
         ],
       });
     }
-    console.log(listState)
   }, [listState]);
 
   useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }else {
+    console.log("SECOND") //<---- WHY IS THIS RUNNING ?
     currentUser && updateFirestore(currentUser.email);
-    console.log(listOfLists)
+    }
   }, [listOfLists]);
 
   const onSubmitItem = (e: FormEvent<Form>) => {
@@ -72,10 +75,6 @@ export const Home: React.FC = () => {
     const itemTarget = e.currentTarget.text;
 
     if (!itemTarget.value.length) return;
-
-    if(!listOfLists.lists.length) {
-      addNewList(+new Date(), itemTarget.value)
-    };
 
     addItem(itemTarget.value);
 

@@ -41,7 +41,7 @@ export const ItemProvider: React.FC = ({ children }) => {
   const [listOfLists, setListOfLists] = useState<ListOfLists>(LIST_OF_LISTS);
   const [listState, dispatch] = useReducer(listReducer, INITIAL_STATE);
   const [isCurrentListChanged, setIsCurrentListChanged] = useState<boolean>(false);
-
+  const [firstListHandler, setFirstListHandler] = useState<boolean>(true);
 
   const { currentUser } = useAuth();
 
@@ -67,7 +67,6 @@ export const ItemProvider: React.FC = ({ children }) => {
         arsTotal: 0,
         usdTotal: 0
       });
-      console.log(docData);
       return docData!;
     }
   };
@@ -122,6 +121,7 @@ export const ItemProvider: React.FC = ({ children }) => {
     const currentListRender = async () => {
       const data =
         currentUser && (await checkOrCreateFirestore(currentUser.email));
+        console.log(data)
       const currentList = data?.listOfLists.lists.find(
         (list: ListState) => list.listId === data.listOfLists.currentList
       );
@@ -129,7 +129,7 @@ export const ItemProvider: React.FC = ({ children }) => {
       currentList ? cloneFireState(currentList) : null;
     };
     currentUser && currentListRender();
-    setIsCurrentListChanged(false);
+    setIsCurrentListChanged(false);   //<--- INFINITE LOOP ?
   }, [currentUser, isCurrentListChanged]);
 
   const values = {
@@ -146,7 +146,7 @@ export const ItemProvider: React.FC = ({ children }) => {
     setFirestoreItems,
     updateFirestore,
     isCurrentListChanged,
-    setIsCurrentListChanged
+    setIsCurrentListChanged,
   };
 
   return <ItemContext.Provider value={values}>{children}</ItemContext.Provider>;
