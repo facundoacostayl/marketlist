@@ -38,11 +38,12 @@ export const Home: React.FC = () => {
   const { currentUser } = useAuth();
   const [isModalActive, setIsModalActive] = useState(false);
   const [listUsdTotal, setListUsdTotal] = useState<number>(0)
-  const isFirstRun = useRef(true);
+  const isFirstListStateRun = useRef(true);
+  const isFirstListOfListsRun = useRef(true);
 
   useEffect(() => {
-    if (isFirstRun.current) {
-      isFirstRun.current = false;
+    if (isFirstListStateRun.current) {
+      isFirstListStateRun.current = false;
       return;
     } else{
       setListOfLists({
@@ -60,8 +61,8 @@ export const Home: React.FC = () => {
   }, [listState]);
 
   useEffect(() => {
-    if (isFirstRun.current) {
-      isFirstRun.current = false;
+    if (isFirstListOfListsRun.current) {
+      isFirstListOfListsRun.current = false;
       return;
     }else {
     console.log("SECOND") //<---- WHY IS THIS RUNNING ?
