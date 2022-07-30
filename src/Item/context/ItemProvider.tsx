@@ -25,7 +25,8 @@ const LIST_OF_LISTS: ListOfLists = {
 };
 
 const INITIAL_STATE: ListState = {
-  listId: 0, //<--- FILTER BY THIS IN ORDER TO SELECT DIFFERENT LISTS FROM DE LIST OF LISTS
+  listId: 0,
+  listName: "Lista 1",
   itemCount: 0,
   items: [],
   completed: 0,
@@ -62,6 +63,7 @@ export const ItemProvider: React.FC = ({ children }) => {
       docData ? (docData.listOfLists.currentList = +new Date()) : null;
       docData?.listOfLists.lists.push({
         listId: docData.listOfLists.currentList,
+        listName: "Lista 1",
         itemCount: 0,
         items: [],
         completed: 0,
@@ -85,6 +87,7 @@ export const ItemProvider: React.FC = ({ children }) => {
         ...listOfLists.lists,
         {
           listId: listId,
+          listName: `Lista ${(listOfLists.lists.length + 1)}`,
           itemCount: 0,
           items: itemName ? [
           {

@@ -6,6 +6,7 @@ export interface Item {
 
 export interface ListState {
     listId: number,
+    listName: string,
     itemCount: number,
     items: Item[],
     completed: number,
