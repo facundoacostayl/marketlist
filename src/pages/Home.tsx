@@ -37,38 +37,7 @@ export const Home: React.FC = () => {
 
   const { currentUser } = useAuth();
   const [isModalActive, setIsModalActive] = useState(false);
-  const [listUsdTotal, setListUsdTotal] = useState<number>(0)
-  const isFirstListStateRun = useRef(true);
-  const isFirstListOfListsRun = useRef(true);
-
-  useEffect(() => {
-    if (isFirstListStateRun.current) {
-      isFirstListStateRun.current = false;
-      return;
-    } else{
-      setListOfLists({
-        ...listOfLists,
-        lists: [
-          ...listOfLists.lists.map((list) => {
-            if (list.listId === listState.listId) {
-              return listState;
-            }
-            return list;
-          }),
-        ],
-      });
-    }
-  }, [listState]);
-
-  useEffect(() => {
-    if (isFirstListOfListsRun.current) {
-      isFirstListOfListsRun.current = false;
-      return;
-    }else {
-    console.log("SECOND") //<---- WHY IS THIS RUNNING ?
-    currentUser && updateFirestore(currentUser.email);
-    }
-  }, [listOfLists]);
+  const [listUsdTotal, setListUsdTotal] = useState<number>(0);
 
   const onSubmitItem = (e: FormEvent<Form>) => {
     e.preventDefault();
@@ -92,28 +61,25 @@ export const Home: React.FC = () => {
 
   const convertCurrency = async (arsTotal: number) => {
     const myHeaders = new Headers();
-      myHeaders.append(
-        "apikey",
-        "lMJAkiwejbkZEEE0gCBCrVxTaRtK3yHV3AwJNPRQ"
-      );
+    myHeaders.append("apikey", "lMJAkiwejbkZEEE0gCBCrVxTaRtK3yHV3AwJNPRQ");
 
-      const response = await fetch(
-        `https://api.currencyapi.com/v3/latest?apikey=lMJAkiwejbkZEEE0gCBCrVxTaRtK3yHV3AwJNPRQ`,
-        {
-          method: "GET",
-          redirect: "follow",
-          headers: myHeaders,
-        }
-      );
+    const response = await fetch(
+      `https://api.currencyapi.com/v3/latest?apikey=lMJAkiwejbkZEEE0gCBCrVxTaRtK3yHV3AwJNPRQ`,
+      {
+        method: "GET",
+        redirect: "follow",
+        headers: myHeaders,
+      }
+    );
 
-      const parseRes = await response.json();
-        console.log(parseRes)
-        cloneFireState({
-          ...listState,
-          arsTotal: arsTotal,
-          usdTotal: arsTotal / parseInt(parseRes.data.ARS.value),
-        });
-  }
+    const parseRes = await response.json();
+    console.log(parseRes);
+    cloneFireState({
+      ...listState,
+      arsTotal: arsTotal,
+      usdTotal: arsTotal / parseInt(parseRes.data.ARS.value),
+    });
+  };
 
   const onSubmitTotal = (e: FormEvent<Form>) => {
     e.preventDefault();

@@ -25,7 +25,7 @@ export const Navbar: React.FC<Props> = ({ isAuth }) => {
             icon={UserIcon}
           ></FontAwesomeIcon>
         </div>
-        {isUserMenu && <UserMenu/>}
+        {isUserMenu && <UserMenu onClose={() => setIsUserMenu(false)}/>}
         </div>
         : 
         <div className={`${styles.signGroup}`}>

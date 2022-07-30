@@ -59,6 +59,18 @@ li {
     }
 }
 
+.liSelected {
+    .productLiLeftSide {
+        .listIconContainer {
+            background-color: green;
+        }
+
+        p {
+            color: green;
+        }
+    }
+}
+
 .newItem {
     .newIconContainer {
         transition: .1s all ease-in-out;

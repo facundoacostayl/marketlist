@@ -1,5 +1,5 @@
 import { ItemContext } from "./ItemContext";
-import { useReducer, useContext, useState, useEffect } from "react";
+import { useReducer, useContext, useState, useEffect, useRef } from "react";
 import { Item, ListState, ListOfLists } from "../types/interfaces";
 import { useAuth } from "../../Auth/context/AuthProvider";
 import { listReducer } from "./listReducer";
@@ -42,6 +42,8 @@ export const ItemProvider: React.FC = ({ children }) => {
   const [listState, dispatch] = useReducer(listReducer, INITIAL_STATE);
   const [isCurrentListChanged, setIsCurrentListChanged] = useState<boolean>(false);
   const [firstListHandler, setFirstListHandler] = useState<boolean>(true);
+  const isFirstListOfListsRun = useRef(true);
+  const isFirstListStateRun = useRef(true);
 
   const { currentUser } = useAuth();
 
@@ -129,8 +131,37 @@ export const ItemProvider: React.FC = ({ children }) => {
       currentList ? cloneFireState(currentList) : null;
     };
     currentUser && currentListRender();
-    setIsCurrentListChanged(false);   //<--- INFINITE LOOP ?
+    setIsCurrentListChanged(false);
   }, [currentUser, isCurrentListChanged]);
+
+  useEffect(() => {
+    if (isFirstListOfListsRun.current) {
+      isFirstListOfListsRun.current = false;
+      return;
+    }else {
+    currentUser && updateFirestore(currentUser.email);
+    }
+    console.log("YES")
+  }, [listOfLists]);
+
+  useEffect(() => {
+    if (isFirstListStateRun.current) {
+      isFirstListStateRun.current = false;
+      return;
+    } else{
+      setListOfLists({
+        ...listOfLists,
+        lists: [
+          ...listOfLists.lists.map((list) => {
+            if (list.listId === listState.listId) {
+              return listState;
+            }
+            return list;
+          }),
+        ],
+      });
+    }
+  }, [listState]);
 
   const values = {
     listState,

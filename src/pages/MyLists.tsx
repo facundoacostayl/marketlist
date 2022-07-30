@@ -8,25 +8,15 @@ import {useNavigate} from 'react-router-dom';
 import {ListState} from '../Item/types/interfaces';
 
 export const MyLists = () => {
-  const { listOfLists, setListOfLists, addNewList, updateFirestore, setIsCurrentListChanged } = useItem();
+  const { listOfLists, setListOfLists, addNewList, updateFirestore, setIsCurrentListChanged, cloneFireState } = useItem();
   const { currentUser } = useAuth();
   
   const isFirstRun = useRef(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(listOfLists)
-    if(isFirstRun.current) {
-      isFirstRun.current = false;
-      return;
-    }else {
-      updateFirestore(currentUser && currentUser.email);
-    }
-  }, [listOfLists])
-
   const selectList = (listId: ListState["listId"]) => {
     setListOfLists({...listOfLists, currentList: listId})
-    setIsCurrentListChanged(true);
+    setIsCurrentListChanged(true)
     navigate("/");
   }
 
@@ -40,7 +30,7 @@ export const MyLists = () => {
         {!listOfLists.lists.length
           ? "Todavía no hay listas"
           : listOfLists.lists.map(list => {
-            return <ListLi onSelectList={() => selectList(list.listId)} key={list.listId}>{list.listId}</ListLi>;
+            return <ListLi selected={list.listId === listOfLists.currentList ? true : false} onSelectList={() => selectList(list.listId)} key={list.listId}>{list.listId}</ListLi>;
           })}
       </ItemList>
     </>

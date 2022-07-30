@@ -7,22 +7,24 @@ type Props = {
   children: React.ReactNode;
   onRemove?: VoidFunction;
   onSelectList: VoidFunction;
+  selected: boolean;
 };
 
 export const ListLi: React.FC<Props> = ({
   onRemove,
   children,
-  onSelectList
+  onSelectList,
+  selected
 }) => {
   return (
-    <li>
+    <li className={selected ? `${styles.liSelected}` : ""}>
       <div className={`${styles.productLiLeftSide}`}>
         <div className={`${styles.iconContainer} ${styles.listIconContainer}`}>
           <i>
             <FontAwesomeIcon className={`${styles.icon}`} icon={ListIcon}></FontAwesomeIcon>
           </i>
         </div>
-        <p onClick={onSelectList} style={{color: 'gray'}}>{children}</p>
+        <p onClick={onSelectList}>{children}</p>
       </div>
       <div className={`${styles.productLiRightSide}`}>
       <div className={`${styles.iconContainer} ${styles.editIconContainer}`}>

@@ -4,7 +4,11 @@ import {FontAwesomeIcon, LoginIcon, faList} from '../icons';
 import {useAuth} from '../../Auth/context/AuthProvider';
 import {useNavigate} from 'react-router-dom';
 
-export const UserMenu = () => {
+type Props = {
+  onClose: VoidFunction
+};
+
+export const UserMenu:React.FC<Props> = ({onClose}: Props) => {
 
   const {onSignOut} = useAuth();
   const navigate = useNavigate();
@@ -19,7 +23,7 @@ export const UserMenu = () => {
   };
 
   return (
-    <>
+    <div onClick={onClose}>
       <b className={`${styles.backdrop}`}></b>
       <div className={`${styles.container}`}>
         <ul>
@@ -33,6 +37,6 @@ export const UserMenu = () => {
             </li>
         </ul>
       </div>
-    </>
+    </div>
   );
 };
