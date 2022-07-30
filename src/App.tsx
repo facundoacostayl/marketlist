@@ -29,7 +29,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
           </Route>
-          <Route path="/mis-listas" element={<MyLists />}></Route>
+          {currentUser && <Route path="/mis-listas" element={<MyLists />}></Route>}
           <Route path="*" element={<Home/>}></Route>
         </Routes>
       </div>

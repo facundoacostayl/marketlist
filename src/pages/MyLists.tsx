@@ -14,10 +14,16 @@ export const MyLists = () => {
   const isFirstRun = useRef(true);
   const navigate = useNavigate();
 
-  const selectList = (listId: ListState["listId"]) => {
+  const onSelectList = (listId: ListState["listId"]) => {
     setListOfLists({...listOfLists, currentList: listId})
     setIsCurrentListChanged(true)
     navigate("/");
+  }
+
+  const onRemoveList = (listId: ListState["listId"]) => {
+    setListOfLists({...listOfLists, lists: [...listOfLists.lists.filter((list: ListState) => {
+      return list.listId != listId
+    })]});
   }
 
   return (
@@ -30,7 +36,7 @@ export const MyLists = () => {
         {!listOfLists.lists.length
           ? "Todavía no hay listas"
           : listOfLists.lists.map(list => {
-            return <ListLi selected={list.listId === listOfLists.currentList ? true : false} onSelectList={() => selectList(list.listId)} key={list.listId}>{list.listId}</ListLi>;
+            return <ListLi selected={list.listId === listOfLists.currentList ? true : false} onSelectList={() => onSelectList(list.listId)} onRemoveList={() => onRemoveList(list.listId)} key={list.listId}>{list.listId}</ListLi>;
           })}
       </ItemList>
     </>

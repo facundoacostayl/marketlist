@@ -7,6 +7,7 @@ type Props = {
   children: React.ReactNode;
   onRemove?: VoidFunction;
   onSelectList: VoidFunction;
+  onRemoveList: VoidFunction;
   selected: boolean;
 };
 
@@ -14,6 +15,7 @@ export const ListLi: React.FC<Props> = ({
   onRemove,
   children,
   onSelectList,
+  onRemoveList,
   selected
 }) => {
   return (
@@ -34,7 +36,7 @@ export const ListLi: React.FC<Props> = ({
         </div>
         <div onClick={onRemove} className={`${styles.iconContainer} ${styles.removeIconContainer}`}>
           <i>
-            <FontAwesomeIcon className={`${styles.icon}`} icon={RemoveIcon}></FontAwesomeIcon>
+            <FontAwesomeIcon onClick={onRemoveList} className={`${styles.icon}`} icon={RemoveIcon}></FontAwesomeIcon>
           </i>
         </div>
       </div>
