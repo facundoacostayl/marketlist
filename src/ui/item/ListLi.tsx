@@ -9,6 +9,8 @@ type Props = {
   onSelectList: VoidFunction;
   onRemoveList: VoidFunction;
   selected: boolean;
+  onToggleModal: VoidFunction;
+  onGetListId: VoidFunction;
 };
 
 export const ListLi: React.FC<Props> = ({
@@ -16,7 +18,9 @@ export const ListLi: React.FC<Props> = ({
   children,
   onSelectList,
   onRemoveList,
-  selected
+  selected,
+  onToggleModal,
+  onGetListId,
 }) => {
   return (
     <li className={selected ? `${styles.liSelected}` : ""}>
@@ -30,8 +34,8 @@ export const ListLi: React.FC<Props> = ({
       </div>
       <div className={`${styles.productLiRightSide}`}>
       <div className={`${styles.iconContainer} ${styles.editIconContainer}`}>
-          <i>
-            <FontAwesomeIcon className={`${styles.icon}`} icon={EditIcon}></FontAwesomeIcon>
+          <i onClick={onGetListId}>
+            <FontAwesomeIcon onClick={onToggleModal} className={`${styles.icon}`} icon={EditIcon}></FontAwesomeIcon>
           </i>
         </div>
         <div onClick={onRemove} className={`${styles.iconContainer} ${styles.removeIconContainer}`}>
